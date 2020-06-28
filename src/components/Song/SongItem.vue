@@ -1,14 +1,30 @@
 <template>
   <div>
-  <a href="url">{{songObj.title}}</a>
+  <a v-on:click="getSpinshareReference">{{songObj.title}}</a>
   </div>
 </template>
 
 <script>
+import SSAPI from '@/modules/module.api.js'
+
 export default {
   name: 'SongItem',
+  data: function () {
+    return {
+    }
+  },
   props: {
-    songObj: Object
+    'songObj': Object
+  },
+  mounted() {
+  },
+  methods: {
+    getSpinshareReference: function() {
+      let ssapi = new SSAPI;
+      ssapi.getSongDetail(this.$props.songObj.id).then(e => {
+        this.$router.push({ name: 'Song', params: {SpinshareReference: e.data.fileReference} })
+      });
+    }
   }
 }
 </script>
