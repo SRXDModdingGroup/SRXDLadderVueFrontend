@@ -14,7 +14,7 @@ import SongDetailScore from '@/components/SongDetailScore.vue'
 import axios from 'axios'
 
 export default {
-  name: 'Home',
+  name: 'SongDetail',
   components: {
     SongDetailScore
   },

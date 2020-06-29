@@ -2,21 +2,31 @@
     <div class="score">
         {{scoreObj.score}}
         {{scoreObj.difficulty}}
-        Otter.jy126
+        {{ username }}
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  name: 'SongList',
+  name: 'SongDetailScore',
   components: {
   },
   props: {
     'scoreObj': Object
   },
+  data: function(){
+    return{
+      username: ""
+    }
+  },
   mounted() {
-    console.log(this.$props.scoreObj);
-    
+    console.log(this.$props.scoreObj.steamID)
+    axios.get('http://localhost:3000/getUser?search='+ this.$props.scoreObj.steamID)
+    .then(res => {
+      this.$data.username = res.data.steamUsername
+    });
   }
 }
 </script>

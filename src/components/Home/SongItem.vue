@@ -1,6 +1,6 @@
 <template>
-  <div>
-  <a v-on:click="getSpinshareReference">{{songObj.title}}</a>
+  <div class="songItem">
+    <a v-on:click="getSpinshareReference">{{songObj.title}}</a>
   </div>
 </template>
 
@@ -31,6 +31,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
+.songItem {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+  justify-content: center;
+  text-align: center;
+  line-height: 50px;
+
+  & img {
+    height: 100%;
+    justify-self: flex-start;
+  }
+}
 h3 {
   margin: 40px 0 0;
 }

@@ -1,21 +1,31 @@
 <template>
     <div>
+      Popular Songs: <br>
       <SongItem v-for="song in songArr" :key="song.id" :songObj="song"/>
     </div>
 </template>
 
 <script>
-import SongItem from '@/components/Song/SongItem.vue'
+import SongItem from '@/components/Home/SongItem.vue'
+import SSAPI from '@/modules/module.api.js'
 
 export default {
-  name: 'SongList',
+  name: 'DefaultSongList',
   components: {
     SongItem
   },
   props: {
-    'songArr': Array
+  },
+  data: function() {
+      return {
+        songArr: []
+      }
   },
   mounted() {
+    var ssapi = new SSAPI;
+    ssapi.getPopularSongs(0).then(e => {
+      this.$data.songArr = e;
+    })
   }
 }
 </script>
