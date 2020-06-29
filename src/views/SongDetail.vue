@@ -1,40 +1,46 @@
 <template>
   <div class="songDetail">
-    Name: {{ SongObj.title }} <br>
-    By: {{ SongObj.artist }} <br>
-    Charter: {{ SongObj.charter }} <br>
-    <SongDetailScore v-for="score in SongScoreList" :key="score.score" :scoreObj="score"/>
+    Name: {{ SongInfoObj.title }} <br>
+    By: {{ SongInfoObj.artist }} <br>
+    Charter: {{ SongInfoObj.charter }} <br>
+    XD:
+    <SongDetailScoreList :scoreArr="SongScoreListObj.XD"/>
+    Expert:
+    <SongDetailScoreList :scoreArr="SongScoreListObj.Expert"/>
+    Hard:
+    <SongDetailScoreList :scoreArr="SongScoreListObj.Hard"/>
+    Normal:
+    <SongDetailScoreList :scoreArr="SongScoreListObj.Normal"/>
+    Easy:
+    <SongDetailScoreList :scoreArr="SongScoreListObj.Easy"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import SSAPI from '@/modules/module.api.js'
-import SongDetailScore from '@/components/SongDetailScore.vue'
+import SongDetailScoreList from '@/components/SongDetail/SongDetailScoreList.vue'
 import axios from 'axios'
 
 export default {
   name: 'SongDetail',
   components: {
-    SongDetailScore
+    SongDetailScoreList
   },
   data: function () {
     return {
         SpinshareReference: this.$route.params.SpinshareReference,
-        SongObj: {},
-        SongScoreList: []
+        SongInfoObj: {},
+        SongScoreListObj: {},
     }
   },
   mounted() {
       let ssapi = new SSAPI;
       ssapi.getSongDetail(this.$data.SpinshareReference).then(e => {
-          this.$data.SongObj = e.data
+          this.$data.SongInfoObj = e.data
           axios.get('http://localhost:3000/getScores?search='+ this.$data.SpinshareReference)
           .then(res => {
-            this.$data.SongScoreList = res.data
-            this.$data.SongScoreList.sort(function(a, b) {
-                return parseFloat(b.score) - parseFloat(a.score);
-            });
+            this.$data.SongScoreListObj = res.data
           })
       });
   },
