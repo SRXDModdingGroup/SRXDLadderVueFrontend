@@ -2,7 +2,7 @@
     <div class="score">
         {{scoreObj.score}}
         {{scoreObj.difficulty}}
-        {{ username }}
+        <a :href="'https://steamcommunity.com/profiles/'+this.$props.scoreObj.steamID">{{ username }}</a>
     </div>
 </template>
 
