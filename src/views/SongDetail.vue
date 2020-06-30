@@ -30,18 +30,23 @@ export default {
   data: function () {
     return {
         SpinshareReference: this.$route.params.SpinshareReference,
+        difficulties:['XD', 'Expert', 'Hard', 'Normal', 'Easy'],
         SongInfoObj: {},
-        SongScoreListObj: {},
+        SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
+        SongScoreListPageObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
     }
   },
   mounted() {
       let ssapi = new SSAPI;
       ssapi.getSongDetail(this.$data.SpinshareReference).then(e => {
           this.$data.SongInfoObj = e.data
-          axios.get('http://localhost:3000/getScores?search='+ this.$data.SpinshareReference)
-          .then(res => {
-            this.$data.SongScoreListObj = res.data
-          })
+          this.$data.difficulties.forEach(difficulty => {
+            axios.get('http://localhost:3000/getScores?search='+ this.$data.SpinshareReference + "&difficulty=" + difficulty + "&page="+ this.$data.SongScoreListPageObj[difficulty])
+            .then(res => {
+              console.log(res.data)
+              this.$data.SongScoreListObj[difficulty] = res.data
+            })
+          });
       });
   },
   methods: {
