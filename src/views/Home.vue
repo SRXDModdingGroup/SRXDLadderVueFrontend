@@ -10,7 +10,6 @@
 // @ is an alias to /src
 import DefaultSongList from '@/components/Home/DefaultSongList.vue'
 import SearchSongList from '@/components/Home/SearchSongList.vue'
-import SSAPI from '@/modules/module.api.js'
 
 export default {
   name: 'Home',
