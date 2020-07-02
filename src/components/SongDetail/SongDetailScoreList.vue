@@ -1,6 +1,8 @@
 <template>
     <div class="score">
+      {{difficulty}}
       <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
+      <button @click="PageChange('back')">Last Page</button><button @click="PageChange('next')">Next Page</button>
     </div>
 </template>
 
@@ -14,18 +16,25 @@ export default {
     SongDetailScore
   },
   props: {
-    scoreArr: Array
+    'difficulty': String,
+    'scoreArr': Array
   },
   data: function(){
     return{
     }
   },
   mounted() {
+    console.log(this.$props.difficulty)
     // console.log(this.$props.scoreObj.steamID)
     // axios.get('http://localhost:3000/getUser?search='+ this.$props.scoreObj.steamID)
     // .then(res => {
     //   this.$data.username = res.data.steamUsername
     // });
+  },
+  methods: {
+    PageChange: function(emitValue) {
+      this.$parent.$emit("ChangePage", {difficulty: this.$props.difficulty, pageChange: emitValue})
+    }
   }
 }
 </script>

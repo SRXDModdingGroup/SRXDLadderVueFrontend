@@ -1,15 +1,20 @@
 <template>
   <div class="songDetail">
-    XD:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.XD"/>
-    Expert:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.Expert"/>
-    Hard:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.Hard"/>
-    Normal:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.Normal"/>
-    Easy:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.Easy"/>
+    <div class="difficulty" v-if="SongScoreListObj.XD.length > 0">
+      <SongDetailScoreList :difficulty= "'XD'" :scoreArr="SongScoreListObj.XD" />
+    </div>
+    <div class="difficulty" v-if="SongScoreListObj.Expert.length > 0">
+      <SongDetailScoreList :difficulty= "'Expert'"  :scoreArr="SongScoreListObj.Expert"/>
+    </div>
+    <div class="difficulty" v-if="SongScoreListObj.Hard.length > 0">
+      <SongDetailScoreList :difficulty= "'Hard'"  :scoreArr="SongScoreListObj.Hard"/>
+    </div>
+    <div class="difficulty" v-if="SongScoreListObj.Normal.length > 0">
+      <SongDetailScoreList :difficulty= "'Normal'"  :scoreArr="SongScoreListObj.Normal"/>
+    </div>
+    <div class="difficulty" v-if="SongScoreListObj.Easy.length > 0">
+      <SongDetailScoreList :difficulty= "'Easy'" :scoreArr="SongScoreListObj.Easy"/>
+    </div>
   </div>
 </template>
 
@@ -20,34 +25,36 @@ import SongDetailScoreList from '@/components/SongDetail/SongDetailScoreList.vue
 import axios from 'axios'
 
 export default {
-  name: 'SongDetail',
+  name: 'SongDetailHashSection',
   components: {
     SongDetailScoreList
   },
+  props: {
+    "hash": Object
+  },
   data: function () {
     return {
-        SpinshareReference: this.$route.params.SpinshareReference,
-        difficulties:['XD', 'Expert', 'Hard', 'Normal', 'Easy'],
-        SongInfoObj: {},
-        SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
-        SongScoreListPageObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
+      difficulties:['XD', 'Expert', 'Hard', 'Normal', 'Easy'],
+      SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
+      SongScoreListPageObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
     }
   },
   mounted() {
-      let ssapi = new SSAPI;
-      ssapi.getSongDetail(this.$data.SpinshareReference).then(e => {
-          this.$data.SongInfoObj = e.data
-          this.$data.difficulties.forEach(difficulty => {
-            axios.get('http://localhost:3000/getScores?search='+ this.$data.SpinshareReference + "&difficulty=" + difficulty + "&page="+ this.$data.SongScoreListPageObj[difficulty])
-            .then(res => {
-              console.log(res.data)
-              this.$data.SongScoreListObj[difficulty] = res.data
-            })
-          });
-      });
+    this.getScoreData()
+    this.$on("ChangePage", e => {
+      if(e == "back") { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] - 1 }
+      else { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] + 1 }
+      this.getScoreData();
+    })
   },
   methods: {
-
+    getScoreData: function() {
+      this.$data.difficulties.forEach(difficulty => {
+        axios.get('http://localhost:3000/getScores?search='+this.$props.hash.levelHash+"&difficulty="+difficulty+"&page="+this.$data.SongScoreListPageObj[difficulty]).then(e => {
+          this.$data.SongScoreListObj[difficulty] = e.data
+        })
+      });
+    }
   }
 }
 </script>

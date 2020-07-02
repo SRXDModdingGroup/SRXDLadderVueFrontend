@@ -1,8 +1,7 @@
 <template>
     <div class="score">
         {{scoreObj.score}}
-        {{scoreObj.difficulty}}
-        <a :href="'https://steamcommunity.com/profiles/'+this.$props.scoreObj.steamID">{{ username }}</a>
+        <a :href="'https://steamcommunity.com/profiles/'+this.$props.scoreObj.userInfo.steamID">{{scoreObj.userInfo.steamUsername}}</a>
     </div>
 </template>
 
@@ -18,15 +17,9 @@ export default {
   },
   data: function(){
     return{
-      username: ""
     }
   },
   mounted() {
-    console.log(this.$props.scoreObj.steamID)
-    axios.get('http://localhost:3000/getUser?search='+ this.$props.scoreObj.steamID)
-    .then(res => {
-      this.$data.username = res.data.steamUsername
-    });
   }
 }
 </script>
