@@ -6,6 +6,7 @@
 
 <script>
 import SSAPI from '@/modules/module.api.js'
+import axios from 'axios'
 
 export default {
   name: 'SongItem',
@@ -21,9 +22,13 @@ export default {
   methods: {
     getSpinshareReference: function() {
       let ssapi = new SSAPI;
-      ssapi.getSongDetail(this.$props.songObj.id).then(e => {
-        this.$router.push({ name: 'Song', params: {SpinshareReference: e.data.fileReference} })
+      ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
+        let firstHash = (await axios.get('http://localhost:3000/getHashes?search='+ e.data.fileReference)).data[0].levelHash
+        this.$router.push({ name: 'Song', params: {SpinshareReference: e.data.fileReference, SongHash: firstHash} })
       });
+    },
+    getHash: async function() {
+      return (await axios.get('http://localhost:3000/getHashes?search='+ this.$data.SpinshareReference )).data
     }
   }
 }

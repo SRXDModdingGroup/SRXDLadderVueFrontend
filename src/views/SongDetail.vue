@@ -3,7 +3,10 @@
     Name: {{ SongInfoObj.title }} <br>
     By: {{ SongInfoObj.artist }} <br>
     Charter: {{ SongInfoObj.charter }} <br>
-    <SongDetailHashSection v-for="(hash, index) in hashArray" :key="index" :hash="hash"/>
+    <SongDetailHashSection v-for="(hash, index) in hashArray" :key="index" :index="index" :hash="hash" :selectedHash="selectedHash" v-if="hash.levelHash = selectedHash"/>
+    <button class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
+      {{hash.levelHash}}
+    </button>
   </div>
 </template>
 
@@ -21,6 +24,7 @@ export default {
   data: function () {
     return {
         SpinshareReference: this.$route.params.SpinshareReference,
+        selectedHash: this.$route.params.SongHash,
         hashArray: [],
         SongInfoObj: {},
         SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
@@ -33,10 +37,19 @@ export default {
         this.$data.SongInfoObj = e.data
           axios.get('http://localhost:3000/getHashes?search='+ this.$data.SpinshareReference ).then(e => {
             this.$data.hashArray = e.data
+            console.log(this.$data.hashArray)
           })
       });
   },
   methods: {
+    hashChanger: function(hash) {
+      this.$router.push({ name: 'Song', params: {SpinshareReference: this.$route.params.SpinshareReference, SongHash: hash} })
+    }
   }
 }
 </script>
+<style lang="less">
+button {
+  height: 25px;
+}
+</style>

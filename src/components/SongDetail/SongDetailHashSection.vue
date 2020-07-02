@@ -1,5 +1,5 @@
 <template>
-  <div class="songDetail">
+  <div class="songDetail" v-if="index == 0">
     <div class="difficulty" v-if="SongScoreListObj.XD.length > 0">
       <SongDetailScoreList :difficulty= "'XD'" :scoreArr="SongScoreListObj.XD" />
     </div>
@@ -30,6 +30,8 @@ export default {
     SongDetailScoreList
   },
   props: {
+    "index": Number,
+    "songInfoObj": Object,
     "hash": Object
   },
   data: function () {
@@ -40,6 +42,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$props.key)
     this.getScoreData()
     this.$on("ChangePage", e => {
       if(e == "back") { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] - 1 }
