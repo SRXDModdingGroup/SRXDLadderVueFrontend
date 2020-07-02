@@ -44,9 +44,13 @@ export default {
   mounted() {
     console.log(this.$props.key)
     this.getScoreData()
-    this.$on("ChangePage", e => {
+    this.$on("changePage", e => {
+      this.$data.SongScoreListPageObj[e.difficulty] = e.pageChange
+      this.getScoreData();
+    })
+    this.$on("addPage", e => {
       if(e == "back") { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] - 1 }
-      else { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] + 1 }
+      else { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] + e }
       this.getScoreData();
     })
   },

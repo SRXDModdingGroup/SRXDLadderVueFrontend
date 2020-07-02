@@ -27,8 +27,6 @@ export default {
         selectedHash: this.$route.params.SongHash,
         hashArray: [],
         SongInfoObj: {},
-        SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
-        SongScoreListPageObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
     }
   },
   mounted() {

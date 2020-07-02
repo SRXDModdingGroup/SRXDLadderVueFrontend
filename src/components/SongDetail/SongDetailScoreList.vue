@@ -2,7 +2,8 @@
     <div class="score">
       {{difficulty}}
       <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
-      <button @click="PageChange('back')">Last Page</button><button @click="PageChange('next')">Next Page</button>
+      <input v-model="pageIndex" @change="changePage(pageIndex)">
+      <button @click="addPageChange('back')">Last Page</button><button @click="addPageChange('next')">Next Page</button>
     </div>
 </template>
 
@@ -21,6 +22,7 @@ export default {
   },
   data: function(){
     return{
+      pageIndex: 0
     }
   },
   mounted() {
@@ -32,8 +34,12 @@ export default {
     // });
   },
   methods: {
-    PageChange: function(emitValue) {
-      this.$parent.$emit("ChangePage", {difficulty: this.$props.difficulty, pageChange: emitValue})
+    addPageChange: function(emitValue) {
+      this.$parent.$emit("addPage", {difficulty: this.$props.difficulty, pageChange: emitValue})
+    },
+    changePage: function(emitValue) {
+      console.log(emitValue)
+      this.$parent.$emit("changePage", {difficulty: this.$props.difficulty, pageChange: emitValue})
     }
   }
 }
