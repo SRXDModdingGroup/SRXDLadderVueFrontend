@@ -26,7 +26,7 @@ export default {
         
         let firstHash = (await axios.get('http://localhost:3000/getHashes?search='+ e.data.fileReference)).data
         if (firstHash.length == 0) {firstHash = 0}
-        else {firstHash = firstHash.data[0].levelHash}
+        else {firstHash = firstHash[0].levelHash}
         this.$router.push({ name: 'Song', params: {SpinshareReference: e.data.fileReference, SongHash: firstHash} })
       });
     },

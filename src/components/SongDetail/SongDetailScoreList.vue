@@ -1,9 +1,17 @@
 <template>
     <div class="score">
-      {{difficulty}}
-      <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
-      <input v-model="pageIndex" @change="changePage(pageIndex)">
-      <button @click="addPageChange('back')">Last Page</button><button @click="addPageChange('next')">Next Page</button>
+      {{difficulty}}:
+      <table>
+        <tr>
+          <th>Score:</th> 
+          <th>Steam Username:</th> 
+        </tr>
+        <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
+      </table>
+      <div class="pagechange">
+        <input v-model="pageIndex" @change="changePage(pageIndex)" placeholder="Page No.">
+        <button @click="addPageChange('back')">Last Page</button><button @click="addPageChange('next')">Next Page</button>
+      </div>
     </div>
 </template>
 
@@ -22,7 +30,7 @@ export default {
   },
   data: function(){
     return{
-      pageIndex: 0
+      pageIndex: ""
     }
   },
   mounted() {
@@ -47,20 +55,29 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .score {
-    margin-top: 10px;
+  margin-top: 20px;
 }
-h3 {
-  margin: 40px 0 0;
+table {
+  margin: auto;
+  position: relative;
+  border: 1px solid white;
+  border-collapse: collapse;
+  & th {
+    border: 1px solid white;
+    padding: 5px;
+  }
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+input {
+  width: 70px;
+  padding: 3px 15px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.pagechange {
+  margin-top: 10px;
+  display: flex;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 </style>

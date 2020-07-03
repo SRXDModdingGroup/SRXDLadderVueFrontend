@@ -7,6 +7,10 @@
   </div>
 </template>
 
+<style lang="less" scoped>
+
+</style>
+
 <style lang="less">
 #app {
   font-family: 'Open Sans', sans-serif;
@@ -14,6 +18,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: rgba(255, 255, 255, 0.7);
+}
+a {
+  color: #e22c78;
 }
 
 // #nav {

@@ -1,8 +1,8 @@
 <template>
-    <div class="score">
-        {{scoreObj.score}}
-        <a :href="'https://steamcommunity.com/profiles/'+this.$props.scoreObj.userInfo.steamID">{{scoreObj.userInfo.steamUsername}}</a>
-    </div>
+    <tr class="score">
+      <th>{{scoreObj.score}}</th> 
+      <th><a :href="'https://steamcommunity.com/profiles/'+this.$props.scoreObj.userInfo.steamID">{{scoreObj.userInfo.steamUsername}}</a></th> 
+    </tr>
 </template>
 
 <script>
@@ -26,6 +26,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
+& th {
+    border: 1px solid white;
+    padding: 5px;
+}
 .score {
     margin-top: 10px;
 }
@@ -40,7 +44,5 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
-}
+
 </style>
