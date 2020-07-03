@@ -26,7 +26,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$props.difficulty)
     // console.log(this.$props.scoreObj.steamID)
     // axios.get('http://localhost:3000/getUser?search='+ this.$props.scoreObj.steamID)
     // .then(res => {

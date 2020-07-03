@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-      <input v-model="songSearchString" v-on:change="getSongs"/>
+      <input v-model="songSearchString" v-on:change="getSongs" placeholder="Search for Songs"/>
       <DefaultSongList v-if="!isSearchActive"/>
       <SearchSongList v-if="isSearchActive" v-bind:songArr="songArr"/>
   </div>
@@ -42,3 +42,17 @@ export default {
   }
 }
 </script>
+<style lang="less">
+html {
+  background: #212629;
+  & input {
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    width: 50%;
+    border-radius: 4px;
+    border: 0px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 9px 20px;
+  }
+}
+</style>

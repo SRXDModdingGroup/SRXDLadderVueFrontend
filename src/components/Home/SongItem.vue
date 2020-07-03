@@ -23,7 +23,10 @@ export default {
     getSpinshareReference: function() {
       let ssapi = new SSAPI;
       ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
-        let firstHash = (await axios.get('http://localhost:3000/getHashes?search='+ e.data.fileReference)).data[0].levelHash
+        
+        let firstHash = (await axios.get('http://localhost:3000/getHashes?search='+ e.data.fileReference)).data
+        if (firstHash.length == 0) {firstHash = 0}
+        else {firstHash = firstHash.data[0].levelHash}
         this.$router.push({ name: 'Song', params: {SpinshareReference: e.data.fileReference, SongHash: firstHash} })
       });
     },
@@ -62,6 +65,7 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  cursor: pointer;
+  color: #e22c78;
 }
 </style>
