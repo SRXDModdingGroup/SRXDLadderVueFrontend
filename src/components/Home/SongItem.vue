@@ -1,6 +1,9 @@
 <template>
-  <div class="songItem">
-    <a v-on:click="getSpinshareReference">{{songObj.title}}</a>
+  <div class="songItem" v-on:click="getSpinshareReference">
+    <div class="image">
+      <img :src="songObj.cover" alt="">
+    </div>
+    <body>{{songObj.title}} <br> {{songObj.artist}}</body>
   </div>
 </template>
 
@@ -18,12 +21,12 @@ export default {
     'songObj': Object
   },
   mounted() {
+    console.log(this.$props.songObj)
   },
   methods: {
     getSpinshareReference: function() {
       let ssapi = new SSAPI;
       ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
-        
         let firstHash = (await axios.get('http://localhost:3000/getHashes?search='+ e.data.fileReference)).data
         if (firstHash.length == 0) {firstHash = 0}
         else {firstHash = firstHash[0].levelHash}
@@ -40,17 +43,44 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .songItem {
+  overflow: hidden;
+  position: relative;
   display: flex;
   width: 100%;
-  height: 50px;
+  height: 75px;
   margin-top: 10px;
-  justify-content: center;
-  text-align: center;
-  line-height: 50px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  color: #e22c78;
+  grid-template-columns: 50px, 200px;
+  grid-template-rows: 100%;
 
-  & img {
+  & body {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+  }
+
+  & .image {
+    z-index: 50;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
     height: 100%;
+    width: 75px;
     justify-self: flex-start;
+    & img {
+      height: 100%;
+    }
   }
 }
 h3 {
@@ -63,9 +93,5 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-}
-a {
-  cursor: pointer;
-  color: #e22c78;
 }
 </style>

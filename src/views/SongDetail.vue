@@ -47,8 +47,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
-button {
+<style scoped lang="less">button {
   height: 25px;
 }
 .hashChanger {

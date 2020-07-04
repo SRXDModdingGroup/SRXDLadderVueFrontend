@@ -35,7 +35,9 @@ export default {
 .list {
   padding-top: 10px;
   body {
-    
+    margin-top: 20px;
+    text-align: start;
+    margin: 0px;
   }
 }
 </style>

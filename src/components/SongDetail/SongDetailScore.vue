@@ -27,8 +27,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 & th {
-    border: 1px solid white;
-    padding: 5px;
+  border: 1px solid white;
+  padding: 5px;
 }
 .score {
     margin-top: 10px;

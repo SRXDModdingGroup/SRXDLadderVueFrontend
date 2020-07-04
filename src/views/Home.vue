@@ -42,17 +42,17 @@ export default {
   }
 }
 </script>
-<style lang="less">
-html {
-  background: #212629;
-  & input {
-    font-family: 'Open Sans', sans-serif;
-    color: white;
-    width: 50%;
-    border-radius: 4px;
-    border: 0px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 9px 20px;
+<style scoped lang="less">
+  .home {
+    & input {
+      font-family: 'Open Sans', sans-serif;
+      color: white;
+      width: 98%;
+      border-radius: 4px;
+      border: 0px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 9px 20px;
+    }
   }
-}
+  
 </style>

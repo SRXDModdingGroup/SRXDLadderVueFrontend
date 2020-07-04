@@ -71,6 +71,9 @@ input {
   width: 70px;
   padding: 3px 15px;
 }
+button {
+  padding: 1.7px 15px;
+}
 .pagechange {
   margin-top: 10px;
   display: flex;
