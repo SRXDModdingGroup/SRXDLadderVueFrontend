@@ -3,6 +3,7 @@
       {{difficulty}}:
       <table>
         <tr>
+          <th>No.</th>
           <th>Score:</th> 
           <th>Steam Username:</th> 
         </tr>
@@ -10,6 +11,7 @@
       </table>
       <div class="pagechange">
         <input v-model="pageIndex" @change="changePage(pageIndex)" placeholder="Page No.">
+        <button @click="refreshComponent()">Refresh</button>
         <button @click="addPageChange('back')">Last Page</button><button @click="addPageChange('next')">Next Page</button>
       </div>
     </div>
@@ -45,8 +47,10 @@ export default {
       this.$parent.$emit("addPage", {difficulty: this.$props.difficulty, pageChange: emitValue})
     },
     changePage: function(emitValue) {
-      console.log(emitValue)
       this.$parent.$emit("changePage", {difficulty: this.$props.difficulty, pageChange: emitValue})
+    },
+    refreshComponent: function(difficulty) {
+      this.$parent.$emit("refreshComponent", this.$props.difficulty)
     }
   }
 }

@@ -1,7 +1,8 @@
 <template>
     <tr class="score">
+      <th>{{scoreObj.index}}</th> 
       <th>{{scoreObj.score}}</th> 
-      <th><a :href="'https://steamcommunity.com/profiles/'+this.$props.scoreObj.userInfo.steamID">{{scoreObj.userInfo.steamUsername}}</a></th> 
+      <th><a :href="'https://steamcommunity.com/profiles/'+ this.$props.scoreObj.steamID">{{scoreObj.steamUsername}}</a></th> 
     </tr>
 </template>
 

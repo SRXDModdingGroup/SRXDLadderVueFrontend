@@ -36,7 +36,6 @@ export default {
         this.$data.SongInfoObj = e.data
           axios.get('http://localhost:3000/getHashes?search='+ this.$data.SpinshareReference ).then(e => {
             this.$data.hashArray = e.data
-            console.log(this.$data.hashArray)
           })
       });
   },

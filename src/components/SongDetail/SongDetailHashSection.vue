@@ -1,19 +1,19 @@
 <template>
   <div class="songDetail" v-if="index == 0">
     <div class="difficulty" v-if="SongScoreListObj.XD.length > 0">
-      <SongDetailScoreList :difficulty= "'XD'" :scoreArr="SongScoreListObj.XD" />
+      <SongDetailScoreList :difficulty= "'XD'" :scoreArr="SongScoreListObj.XD" :key="SongScoreListRefreshObj.XD"/>
     </div>
     <div class="difficulty" v-if="SongScoreListObj.Expert.length > 0">
-      <SongDetailScoreList :difficulty= "'Expert'"  :scoreArr="SongScoreListObj.Expert"/>
+      <SongDetailScoreList :difficulty= "'Expert'"  :scoreArr="SongScoreListObj.Expert" :key="SongScoreListRefreshObj.Expert"/>
     </div>
     <div class="difficulty" v-if="SongScoreListObj.Hard.length > 0">
-      <SongDetailScoreList :difficulty= "'Hard'"  :scoreArr="SongScoreListObj.Hard"/>
+      <SongDetailScoreList :difficulty= "'Hard'"  :scoreArr="SongScoreListObj.Hard" :key="SongScoreListRefreshObj.Hard"/>
     </div>
     <div class="difficulty" v-if="SongScoreListObj.Normal.length > 0">
-      <SongDetailScoreList :difficulty= "'Normal'"  :scoreArr="SongScoreListObj.Normal"/>
+      <SongDetailScoreList :difficulty= "'Normal'"  :scoreArr="SongScoreListObj.Normal" :key="SongScoreListRefreshObj.Normal"/>
     </div>
     <div class="difficulty" v-if="SongScoreListObj.Easy.length > 0">
-      <SongDetailScoreList :difficulty= "'Easy'" :scoreArr="SongScoreListObj.Easy"/>
+      <SongDetailScoreList :difficulty= "'Easy'" :scoreArr="SongScoreListObj.Easy" :key="SongScoreListRefreshObj.Easy"/>
     </div>
   </div>
 </template>
@@ -39,6 +39,7 @@ export default {
       difficulties:['XD', 'Expert', 'Hard', 'Normal', 'Easy'],
       SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
       SongScoreListPageObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
+      SongScoreListRefreshObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
     }
   },
   mounted() {
@@ -51,6 +52,10 @@ export default {
       if(e.pageChange == "back") { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] - 1 }
       else if (e.pageChange == "next") { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] + 1 }
       this.getScoreData();
+    })
+    this.$on("refreshComponent", e => {
+      this.$data.SongScoreListRefreshObj[e] += 1
+      console.log(this.$data.SongScoreListRefreshObj[e])
     })
   },
   methods: {
