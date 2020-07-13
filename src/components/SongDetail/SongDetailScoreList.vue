@@ -10,9 +10,9 @@
         <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
       </table>
       <div class="pagechange">
-        <input v-model="pageIndex" @change="changePage(pageIndex)" placeholder="Page No.">
-        <button @click="refreshComponent()">Refresh</button>
-        <button @click="addPageChange('back')">Last Page</button><button @click="addPageChange('next')">Next Page</button>
+        <input v-model="pageIndex" placeholder="Page No.">
+        <button @click="refreshList()">Refresh</button>
+        <button @click="pageIndex--">Last Page</button><button @click="pageIndex++">Next Page</button>
       </div>
     </div>
 </template>
@@ -28,29 +28,28 @@ export default {
   },
   props: {
     'difficulty': String,
-    'scoreArr': Array
+    'hash': String
   },
   data: function(){
     return{
-      pageIndex: ""
+      pageIndex: 0,
+      scoreArr: []
+    }
+  },
+  watch: {
+  	'pageIndex': function() {
+    	this.refreshList();
     }
   },
   mounted() {
-    // console.log(this.$props.scoreObj.steamID)
-    // axios.get('http://localhost:3000/getUser?search='+ this.$props.scoreObj.steamID)
-    // .then(res => {
-    //   this.$data.username = res.data.steamUsername
-    // });
+    this.refreshList();
   },
   methods: {
-    addPageChange: function(emitValue) {
-      this.$parent.$emit("addPage", {difficulty: this.$props.difficulty, pageChange: emitValue})
-    },
-    changePage: function(emitValue) {
-      this.$parent.$emit("changePage", {difficulty: this.$props.difficulty, pageChange: emitValue})
-    },
-    refreshComponent: function(difficulty) {
-      this.$parent.$emit("refreshComponent", this.$props.difficulty)
+    refreshList: function() {
+      axios.get('http://localhost:3000/getScores?search='+this.$props.hash+"&difficulty="+this.$props.difficulty+"&page="+this.$data.pageIndex).then(e => {
+        this.$data.scoreArr = e.data
+        console.log("refreshed")
+      })
     }
   }
 }

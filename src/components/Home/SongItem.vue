@@ -21,7 +21,6 @@ export default {
     'songObj': Object
   },
   mounted() {
-    console.log(this.$props.songObj)
   },
   methods: {
     getSpinshareReference: function() {

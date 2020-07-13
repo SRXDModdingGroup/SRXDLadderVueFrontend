@@ -1,19 +1,19 @@
 <template>
-  <div class="songDetail" v-if="index == 0">
-    <div class="difficulty" v-if="SongScoreListObj.XD.length > 0">
-      <SongDetailScoreList :difficulty= "'XD'" :scoreArr="SongScoreListObj.XD" :key="SongScoreListRefreshObj.XD"/>
+  <div class="songDetail">
+    <div class="difficulty" v-if="SongInfoObj.hasXDDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'XD'" :key="SongScoreListRefreshObj.XD"/>
     </div>
-    <div class="difficulty" v-if="SongScoreListObj.Expert.length > 0">
-      <SongDetailScoreList :difficulty= "'Expert'"  :scoreArr="SongScoreListObj.Expert" :key="SongScoreListRefreshObj.Expert"/>
+    <div class="difficulty" v-if="SongInfoObj.hasExtremeDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'Expert'" :key="SongScoreListRefreshObj.Expert"/>
     </div>
-    <div class="difficulty" v-if="SongScoreListObj.Hard.length > 0">
-      <SongDetailScoreList :difficulty= "'Hard'"  :scoreArr="SongScoreListObj.Hard" :key="SongScoreListRefreshObj.Hard"/>
+    <div class="difficulty" v-if="SongInfoObj.hasHardDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'Hard'" :key="SongScoreListRefreshObj.Hard"/>
     </div>
-    <div class="difficulty" v-if="SongScoreListObj.Normal.length > 0">
-      <SongDetailScoreList :difficulty= "'Normal'"  :scoreArr="SongScoreListObj.Normal" :key="SongScoreListRefreshObj.Normal"/>
+    <div class="difficulty" v-if="SongInfoObj.hasNormalDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'Normal'" :key="SongScoreListRefreshObj.Normal"/>
     </div>
-    <div class="difficulty" v-if="SongScoreListObj.Easy.length > 0">
-      <SongDetailScoreList :difficulty= "'Easy'" :scoreArr="SongScoreListObj.Easy" :key="SongScoreListRefreshObj.Easy"/>
+    <div class="difficulty" v-if="SongInfoObj.hasEasyDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'Easy'" :key="SongScoreListRefreshObj.Easy"/>
     </div>
   </div>
 </template>
@@ -30,9 +30,8 @@ export default {
     SongDetailScoreList
   },
   props: {
-    "index": Number,
-    "songInfoObj": Object,
-    "hash": Object
+    "SongInfoObj": Object,
+    "hash": String
   },
   data: function () {
     return {
@@ -43,7 +42,6 @@ export default {
     }
   },
   mounted() {
-    this.getScoreData()
     this.$on("changePage", e => {
       this.$data.SongScoreListPageObj[e.difficulty] = e.pageChange
       this.getScoreData();
@@ -55,17 +53,9 @@ export default {
     })
     this.$on("refreshComponent", e => {
       this.$data.SongScoreListRefreshObj[e] += 1
-      console.log(this.$data.SongScoreListRefreshObj[e])
     })
   },
   methods: {
-    getScoreData: function() {
-      this.$data.difficulties.forEach(difficulty => {
-        axios.get('http://localhost:3000/getScores?search='+this.$props.hash.levelHash+"&difficulty="+difficulty+"&page="+this.$data.SongScoreListPageObj[difficulty]).then(e => {
-          this.$data.SongScoreListObj[difficulty] = e.data
-        })
-      });
-    }
   }
 }
 </script>

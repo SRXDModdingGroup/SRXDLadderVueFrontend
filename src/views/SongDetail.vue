@@ -3,10 +3,10 @@
     Name: {{ SongInfoObj.title }} <br>
     By: {{ SongInfoObj.artist }} <br>
     Charter: {{ SongInfoObj.charter }} <br>
-    <SongDetailHashSection v-for="(hash, index) in hashArray" :key="index" :index="index" :hash="hash" :selectedHash="selectedHash" v-if="hash.levelHash = selectedHash"/> <br>
+    <SongDetailHashSection :SongInfoObj="SongInfoObj" :hash="selectedHash" /> <br>
     Hashes: <br>
     <button class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
-      {{hash.levelHash}}:
+      {{hash.levelHash}}
     </button>
   </div>
 </template>
