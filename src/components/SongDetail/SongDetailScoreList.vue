@@ -7,6 +7,9 @@
           <th>Score:</th> 
           <th>Steam Username:</th> 
         </tr>
+        
+        <tr v-if="scoreArr.length == 0">No Scores Yet!:</tr> 
+
         <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
       </table>
       <div class="pagechange">
@@ -43,6 +46,7 @@ export default {
   },
   mounted() {
     this.refreshList();
+    localStorage.setItem("steamID", "76561198249679284")
   },
   methods: {
     refreshList: function() {
