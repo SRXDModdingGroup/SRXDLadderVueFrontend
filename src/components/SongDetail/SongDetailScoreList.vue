@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import BACKBONE from '@/modules/module.backbone.js'
 import axios from 'axios';
 import SongDetailScore from '@/components/SongDetail/SongDetailScore.vue'
 
@@ -49,11 +50,10 @@ export default {
     localStorage.setItem("steamID", "76561198249679284")
   },
   methods: {
-    refreshList: function() {
-      axios.get('http://localhost:3000/getScores?search='+this.$props.hash+"&difficulty="+this.$props.difficulty+"&page="+this.$data.pageIndex).then(e => {
-        this.$data.scoreArr = e.data
-        console.log("refreshed")
-      })
+    refreshList: async function() {
+      let backbone = new BACKBONE;     
+      this.$data.scoreArr = await backbone.getScores(this.$props.hash, this.$props.difficulty, this.$data.pageIndex)
+      console.log("refreshed")
     }
   }
 }

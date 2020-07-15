@@ -9,6 +9,7 @@
 
 <script>
 import SSAPI from '@/modules/module.api.js'
+import BACKBONE from '@/modules/module.backbone.js'
 import axios from 'axios'
 
 export default {
@@ -25,15 +26,17 @@ export default {
   methods: {
     getSpinshareReference: function() {
       let ssapi = new SSAPI;
+      let backbone = new BACKBONE;
       ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
-        let firstHash = (await axios.get('http://localhost:3000/getHashes?search='+ e.data.fileReference)).data
+        let firstHash = await backbone.getHashes(e.data.fileReference);
         if (firstHash.length == 0) {firstHash = 0}
         else {firstHash = firstHash[0].levelHash}
         this.$router.push({ name: 'Song', params: {SpinshareReference: e.data.fileReference, SongHash: firstHash} })
       });
     },
     getHash: async function() {
-      return (await axios.get('http://localhost:3000/getHashes?search='+ this.$data.SpinshareReference )).data
+      let backbone = new BACKBONE;
+      return await backbone.getHashes(this.$data.SpinshareReference);
     }
   }
 }
