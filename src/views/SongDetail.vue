@@ -13,6 +13,7 @@
 
 <script>
 // @ is an alias to /src
+import BACKBONE from '@/modules/module.backbone.js'
 import SSAPI from '@/modules/module.api.js'
 import SongDetailHashSection from '@/components/SongDetail/SongDetailHashSection.vue'
 import axios from 'axios'
@@ -32,11 +33,10 @@ export default {
   },
   mounted() {
       let ssapi = new SSAPI;
-      ssapi.getSongDetail(this.$data.SpinshareReference).then(e => {
+      let backbone = new BACKBONE;
+      ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
         this.$data.SongInfoObj = e.data
-          axios.get('http://localhost:3000/getHashes?search='+ this.$data.SpinshareReference ).then(e => {
-            this.$data.hashArray = e.data
-          })
+        this.$data.hashArray = await backbone.getHashes(this.$data.SpinshareReference);
       });
   },
   methods: {

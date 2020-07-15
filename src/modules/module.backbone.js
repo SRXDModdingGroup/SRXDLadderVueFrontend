@@ -9,7 +9,6 @@ class BACKBONE {
         let backboneURL = this.urlBase + "getHashes?search=" + search;
         return axios.get(backboneURL)
         .then(function(response) {
-            console.log(response.data)
             return response.data;
         }).catch(function(error) {
             throw new Error(error);
@@ -19,7 +18,6 @@ class BACKBONE {
         let backboneURL = this.urlBase + 'getScores?search='+hash+"&difficulty="+difficulty+"&page="+pageIndex;
         return axios.get(backboneURL)
         .then(function(response) {
-            console.log(response.data)
             return response.data;
         }).catch(function(error) {
             throw new Error(error);
