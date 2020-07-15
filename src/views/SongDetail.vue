@@ -46,7 +46,12 @@ export default {
   }
 }
 </script>
-<style scoped lang="less">button {
+<style scoped lang="less">
+.songDetail {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+button {
   height: 25px;
 }
 .hashChanger {

@@ -23,7 +23,11 @@ a {
 }
 html {
   background: #212629;
+}
+body {
   gap: 0;
+  border: 0;
+  margin: 0;
 }
 .footer {
   font-size: 10pt;

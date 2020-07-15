@@ -1,5 +1,5 @@
 <template>
-  <div class="songDetail">
+  <div class="scoreSection">
     <div class="difficulty" v-if="SongInfoObj.hasXDDifficulty">
       <SongDetailScoreList :hash= "hash" :difficulty= "'XD'" :key="SongScoreListRefreshObj.XD"/>
     </div>
@@ -59,3 +59,17 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+  .scoreSection {
+    display: flex;
+    height: 525px;
+    margin-top: 10px;
+    .difficulty {
+      overflow: hidden;
+      border-radius: 4px;
+      margin: 4px;
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>
