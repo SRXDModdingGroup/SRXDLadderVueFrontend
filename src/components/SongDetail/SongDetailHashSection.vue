@@ -63,7 +63,7 @@ export default {
   .scoreSection {
     display: flex;
     height: 525px;
-    margin-top: 10px;
+    margin-top: 4px;
     .difficulty {
       overflow: hidden;
       border-radius: 4px;

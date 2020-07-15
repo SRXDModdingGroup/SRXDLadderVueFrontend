@@ -1,8 +1,15 @@
 <template>
   <div class="songDetail">
-    Name: {{ SongInfoObj.title }} <br>
-    By: {{ SongInfoObj.artist }} <br>
-    Charter: {{ SongInfoObj.charter }} <br>
+    <div class="songItem">
+      <div class="image">
+        <img :src="SongInfoObj.paths.cover" alt="">
+      </div>
+      <body>
+        Name: {{ SongInfoObj.title }} <br>
+        By: {{ SongInfoObj.artist }} <br>
+        Charter: {{ SongInfoObj.charter }} <br>
+      </body>
+    </div>
     <SongDetailHashSection :SongInfoObj="SongInfoObj" :hash="selectedHash" /> <br>
     Hashes: <br>
     <button class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
@@ -47,6 +54,47 @@ export default {
 }
 </script>
 <style scoped lang="less">
+.songItem {
+  margin: 4px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  width: auto;
+  height: 75px;
+  margin-top: 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e22c78;
+  grid-template-columns: 50px, 200px;
+  grid-template-rows: 100%;
+
+  & body {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+  }
+
+  & .image {
+    z-index: 50;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+    height: 100%;
+    width: 75px;
+    justify-self: flex-start;
+    & img {
+      height: 100%;
+    }
+  }
+}
 .songDetail {
   margin-top: 8px;
   margin-bottom: 8px;
