@@ -2,6 +2,7 @@ const axios = require('axios');
 
 class BACKBONE {
     constructor() {
+        // this.urlBase = "https://spin-board.herokuapp.com/";
         this.urlBase = "http://localhost:3000/";
     }
 

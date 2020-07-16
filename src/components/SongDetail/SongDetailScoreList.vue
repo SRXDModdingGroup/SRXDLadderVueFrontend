@@ -122,6 +122,16 @@ input {
   padding: 3px 15px;
 }
 button {
+  text-align: center;
+  cursor: pointer;
+  color: #e22c78;
+  margin-left: 30px;
+  line-height: 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 0px;
 }
 .pagechange {
   width: 100%;

@@ -15,9 +15,9 @@
     <input v-model="steamID" placeholder="Set your steamID here...">
     <br><br>
     Hashes: <br>
-    <button class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
+    <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
       {{hash.levelHash}}
-    </button>
+    </a>
 
   </div>
 </template>

@@ -20,6 +20,7 @@
 }
 a {
   color: #e83f85;
+  cursor: pointer;
 }
 html {
   background: #212629;
