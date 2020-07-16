@@ -19,7 +19,7 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   { 
-    path: '/song/:SpinshareReference', 
+    path: '/song/:SpinshareReference/:SongHash', 
     name: 'Song',
     component: () => import(/* webpackChunkName: "about" */ '../views/SongDetail.vue') 
   },

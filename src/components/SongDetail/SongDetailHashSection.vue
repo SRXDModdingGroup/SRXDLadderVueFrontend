@@ -1,15 +1,20 @@
 <template>
-  <div class="songDetail">
-    XD:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.XD"/>
-    Expert:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.Expert"/>
-    Hard:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.Hard"/>
-    Normal:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.Normal"/>
-    Easy:
-    <SongDetailScoreList :scoreArr="SongScoreListObj.Easy"/>
+  <div class="scoreSection">
+    <div class="difficulty" v-if="SongInfoObj.hasXDDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'XD'" :key="SongScoreListRefreshObj.XD"/>
+    </div>
+    <div class="difficulty" v-if="SongInfoObj.hasExtremeDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'Expert'" :key="SongScoreListRefreshObj.Expert"/>
+    </div>
+    <div class="difficulty" v-if="SongInfoObj.hasHardDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'Hard'" :key="SongScoreListRefreshObj.Hard"/>
+    </div>
+    <div class="difficulty" v-if="SongInfoObj.hasNormalDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'Normal'" :key="SongScoreListRefreshObj.Normal"/>
+    </div>
+    <div class="difficulty" v-if="SongInfoObj.hasEasyDifficulty">
+      <SongDetailScoreList :hash= "hash" :difficulty= "'Easy'" :key="SongScoreListRefreshObj.Easy"/>
+    </div>
   </div>
 </template>
 
@@ -20,34 +25,61 @@ import SongDetailScoreList from '@/components/SongDetail/SongDetailScoreList.vue
 import axios from 'axios'
 
 export default {
-  name: 'SongDetail',
+  name: 'SongDetailHashSection',
   components: {
     SongDetailScoreList
   },
+  props: {
+    "SongInfoObj": Object,
+    "hash": String
+  },
   data: function () {
     return {
-        SpinshareReference: this.$route.params.SpinshareReference,
-        difficulties:['XD', 'Expert', 'Hard', 'Normal', 'Easy'],
-        SongInfoObj: {},
-        SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
-        SongScoreListPageObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
+      truth: [
+        this.$props.SongInfoObj.hasXDDifficulty, 
+        this.$props.SongInfoObj.hasExtremeDifficulty, 
+        this.$props.SongInfoObj.hasHardDifficulty,
+        this.$props.SongInfoObj.hasNormalDifficulty,
+        this.$props.SongInfoObj.hasEasyDifficulty
+      ],
+      difficulties:['XD', 'Expert', 'Hard', 'Normal', 'Easy'],
+      SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
+      SongScoreListPageObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
+      SongScoreListRefreshObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
     }
   },
   mounted() {
-      let ssapi = new SSAPI;
-      ssapi.getSongDetail(this.$data.SpinshareReference).then(e => {
-          this.$data.SongInfoObj = e.data
-          this.$data.difficulties.forEach(difficulty => {
-            axios.get('http://localhost:3000/getScores?search='+ this.$data.SpinshareReference + "&difficulty=" + difficulty + "&page="+ this.$data.SongScoreListPageObj[difficulty])
-            .then(res => {
-              console.log(res.data)
-              this.$data.SongScoreListObj[difficulty] = res.data
-            })
-          });
-      });
+    this.$on("changePage", e => {
+      this.$data.SongScoreListPageObj[e.difficulty] = e.pageChange
+      this.getScoreData();
+    })
+    this.$on("addPage", e => {
+      if(e.pageChange == "back") { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] - 1 }
+      else if (e.pageChange == "next") { this.$data.SongScoreListPageObj[e.difficulty] = this.$data.SongScoreListPageObj[e.difficulty] + 1 }
+      this.getScoreData();
+    })
+    this.$on("refreshComponent", e => {
+      this.$data.SongScoreListRefreshObj[e] += 1
+    })
   },
   methods: {
-
   }
 }
 </script>
+<style lang="less" scoped>
+  .scoreSection {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    margin-top: 4px;
+    align-content: center;
+    justify-content: center;
+    .difficulty {
+      overflow: hidden;
+      border-radius: 6px;
+      margin: 4px;
+      min-width: 370px;
+      height: 770px;
+    }
+  }
+</style>

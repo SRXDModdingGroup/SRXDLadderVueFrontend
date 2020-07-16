@@ -1,9 +1,9 @@
 <template>
-    <div class="score">
-        {{scoreObj.score}}
-        {{scoreObj.difficulty}}
-        <a :href="'https://steamcommunity.com/profiles/'+this.$props.scoreObj.steamID">{{ username }}</a>
-    </div>
+    <tr class="score">
+      <th>{{scoreObj.index}}</th> 
+      <th>{{scoreObj.score}}</th> 
+      <th><a :href="'https://steamcommunity.com/profiles/'+ this.$props.scoreObj.steamID">{{scoreObj.steamUsername}}</a></th> 
+    </tr>
 </template>
 
 <script>
@@ -18,21 +18,19 @@ export default {
   },
   data: function(){
     return{
-      username: ""
     }
   },
   mounted() {
-    console.log(this.$props.scoreObj.steamID)
-    axios.get('http://localhost:3000/getUser?search='+ this.$props.scoreObj.steamID)
-    .then(res => {
-      this.$data.username = res.data.steamUsername
-    });
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
+& th {
+  border: 1px solid white;
+  padding: 5px;
+}
 .score {
     margin-top: 10px;
 }
@@ -47,7 +45,5 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
-}
+
 </style>
