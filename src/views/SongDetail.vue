@@ -61,6 +61,7 @@ export default {
   methods: {
     hashChanger: function(hash) {
       this.$router.push({ name: 'Song', params: {SpinshareReference: this.$route.params.SpinshareReference, SongHash: hash} })
+      window.location.reload();
     }
   }
 }

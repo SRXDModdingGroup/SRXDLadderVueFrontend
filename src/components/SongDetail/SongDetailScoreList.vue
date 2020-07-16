@@ -33,13 +33,15 @@
       </table> 
       <div class="pagechange">
         <input v-model="pageIndex" placeholder="Page No.">
-        <button @click="refreshList()">Refresh</button>
-        <button @click="pageIndex--">Last Page</button><button @click="pageIndex++">Next Page</button>
+        <button @click="refreshList()"><span class="mdi mdi-refresh" /></button>
+        <button @click="pageIndex--"><span class="mdi mdi-arrow-left" /></button>
+        <button @click="pageIndex++"><span class="mdi mdi-arrow-right" /></button>
       </div>
     </div>
 </template>
 
 <script>
+import '@mdi/font/css/materialdesignicons.css'
 import BACKBONE from '@/modules/module.backbone.js'
 import axios from 'axios';
 import SongDetailScore from '@/components/SongDetail/SongDetailScore.vue'
