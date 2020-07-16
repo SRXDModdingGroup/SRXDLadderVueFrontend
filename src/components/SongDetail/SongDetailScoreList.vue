@@ -54,7 +54,7 @@ export default {
   },
   mounted() {
     this.refreshList();
-    this.$data.somethingArr.length = 10;
+    this.$data.somethingArr.length = 15;
     localStorage.setItem("steamID", "76561198249679284")
   },
   methods: {
@@ -107,6 +107,6 @@ button {
 .pagechange {
   width: 100%;
   position: absolute;
-  bottom: 5px;
+  bottom: 8px;
 }
 </style>

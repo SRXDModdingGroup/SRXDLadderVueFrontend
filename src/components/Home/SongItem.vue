@@ -3,7 +3,7 @@
     <div class="image">
       <img :src="songObj.cover" alt="">
     </div>
-    <body>{{songObj.title}} <br> {{songObj.artist}}</body>
+    <body>{{songObj.title}}<br>{{songObj.artist}}</body>
   </div>
 </template>
 

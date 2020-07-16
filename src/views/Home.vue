@@ -53,7 +53,7 @@ export default {
         font-family: 'Open Sans', sans-serif;
         color: white;
         width: 100%;
-        border-radius: 4px;
+        border-radius: 6px;
         border: 0px;
         background: rgba(255, 255, 255, 0.2);
         padding: 9px 20px;

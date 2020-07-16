@@ -62,13 +62,15 @@ export default {
 <style lang="less" scoped>
   .scoreSection {
     display: flex;
-    height: 525px;
+    height: 700px;
     margin-top: 4px;
+    align-content: center;
+    justify-content: center;
     .difficulty {
       overflow: hidden;
-      border-radius: 4px;
+      border-radius: 6px;
       margin: 4px;
-      width: 100%;
+      width: 375px;
       height: auto;
     }
   }
