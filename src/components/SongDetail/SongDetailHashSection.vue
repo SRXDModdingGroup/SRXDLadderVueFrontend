@@ -35,6 +35,13 @@ export default {
   },
   data: function () {
     return {
+      truth: [
+        this.$props.SongInfoObj.hasXDDifficulty, 
+        this.$props.SongInfoObj.hasExtremeDifficulty, 
+        this.$props.SongInfoObj.hasHardDifficulty,
+        this.$props.SongInfoObj.hasNormalDifficulty,
+        this.$props.SongInfoObj.hasEasyDifficulty
+      ],
       difficulties:['XD', 'Expert', 'Hard', 'Normal', 'Easy'],
       SongScoreListObj: {'XD': [], 'Expert': [], 'Hard': [], 'Normal': [], 'Easy': []},
       SongScoreListPageObj: {'XD': 0, 'Expert': 0, 'Hard': 0, 'Normal': 0, 'Easy': 0},
@@ -71,7 +78,7 @@ export default {
       border-radius: 6px;
       margin: 4px;
       width: 375px;
-      height: auto;
+      height: 100%;
     }
   }
 </style>

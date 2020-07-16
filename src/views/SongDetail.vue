@@ -55,7 +55,7 @@ export default {
 </script>
 <style scoped lang="less">
 .songItem {
-  margin: 5px;
+  margin: 7px;
   overflow: hidden;
   position: relative;
   display: flex;

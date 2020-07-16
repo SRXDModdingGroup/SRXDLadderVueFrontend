@@ -73,7 +73,7 @@ export default {
   position: relative;
   justify-content: center;
   width: auto;
-  height: 100%;
+  height: 700px;
   background: rgba(255, 255, 255, 0.1)
 }
 .difficultyId {
