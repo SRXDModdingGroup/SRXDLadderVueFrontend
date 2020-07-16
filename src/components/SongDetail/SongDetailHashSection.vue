@@ -69,7 +69,8 @@ export default {
 <style lang="less" scoped>
   .scoreSection {
     display: flex;
-    height: 770px;
+    flex-wrap: wrap;
+    height: auto;
     margin-top: 4px;
     align-content: center;
     justify-content: center;
@@ -77,8 +78,8 @@ export default {
       overflow: hidden;
       border-radius: 6px;
       margin: 4px;
-      width: 375px;
-      height: 100%;
+      min-width: 370px;
+      height: 770px;
     }
   }
 </style>
