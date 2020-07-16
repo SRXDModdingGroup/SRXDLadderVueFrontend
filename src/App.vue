@@ -4,7 +4,7 @@
       <!-- <router-link to="/">Home</router-link> -->
     </div>
     <router-view/>
-    <div class="footer"> SpinBoard - Freshly baked Alpha (0.0.1) by AyanAmy</div>
+    <div class="footer"> SpinBoard - Freshly baked Alpha (0.1.0) by AyanAmy</div>
   </div>
 </template>
 

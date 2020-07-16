@@ -16,7 +16,7 @@
     <br><br>
     Hashes: <br>
     <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
-      {{hash.levelHash}}
+      {{hash.levelHash}} - {{hash.length}} Submitted Scores
     </a>
 
   </div>

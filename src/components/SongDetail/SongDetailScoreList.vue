@@ -9,11 +9,8 @@
         </tr>
 
         <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
-        <tr v-if="scoreArr.length == 0 && index == 0" v-for="(empty, index) in emptyArr">
-          <td colspan="3">No scores yet!</td>
-        </tr>
 
-        <tr v-for="empty in emptyArr">
+        <tr v-for="(empty, index) in emptyArr" :key="index">
           <th>-</th>
           <th>-</th>
           <th>-</th>
@@ -57,10 +54,10 @@ export default {
   },
   data: function(){
     return{
-      pageIndex: 0,
+      pageIndex: 1,
       scoreArr: [],
       yourScore: [],
-      emptyArr: []
+      emptyArr: [],
     }
   },
   watch: {
@@ -69,20 +66,20 @@ export default {
     }
   },
   mounted() {
-    this.refreshList();
-    this.$data.emptyArr.length = 15;
-    
+    this.refreshList()
   },
   methods: {
     refreshList: async function() {
       let backbone = new BACKBONE;     
-      this.$data.scoreArr = await backbone.getScores(this.$props.hash, this.$props.difficulty, this.$data.pageIndex)
+      this.$data.scoreArr = await backbone.getScores(this.$props.hash, this.$props.difficulty, this.$data.pageIndex - 1)
       if (localStorage.getItem("steamID") != null){
         this.$data.yourScore = await backbone.getUserScore(localStorage.getItem("steamID"),this.$props.hash, this.$props.difficulty)
       }
-      console.log("refreshed")
+      this.$data.emptyArr = new Array(15 - this.$data.scoreArr.length)
+      console.log("refreshed");
+      return;
     }
-  }
+  },
 }
 </script>
 
