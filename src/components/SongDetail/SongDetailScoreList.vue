@@ -7,17 +7,30 @@
           <th>Score:</th> 
           <th>Steam Username:</th> 
         </tr>
+
         <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
-        <tr v-if="scoreArr.length == 0 && index == 0" v-for="(something, index) in somethingArr">
+        <tr v-if="scoreArr.length == 0 && index == 0" v-for="(empty, index) in emptyArr">
           <td colspan="3">No scores yet!</td>
         </tr>
-        <tr v-for="something in somethingArr">
-          <th>-</th>
-          <th>-</th>
-          <th>-</th>
-        </tr>  
 
-      </table>
+        <tr v-for="empty in emptyArr">
+          <th>-</th>
+          <th>-</th>
+          <th>-</th>
+        </tr>
+
+        <tr>
+          <td colspan="3">Your Score:</td>
+        </tr>
+
+        <SongDetailScore v-if="yourScore.length > 0" :scoreObj="yourScore[0]"/>
+        <tr v-else>
+          <th>-</th>
+          <th>-</th>
+          <th>-</th>
+        </tr>
+
+      </table> 
       <div class="pagechange">
         <input v-model="pageIndex" placeholder="Page No.">
         <button @click="refreshList()">Refresh</button>
@@ -44,7 +57,8 @@ export default {
     return{
       pageIndex: 0,
       scoreArr: [],
-      somethingArr: []
+      yourScore: [],
+      emptyArr: []
     }
   },
   watch: {
@@ -54,13 +68,16 @@ export default {
   },
   mounted() {
     this.refreshList();
-    this.$data.somethingArr.length = 15;
-    localStorage.setItem("steamID", "76561198249679284")
+    this.$data.emptyArr.length = 15;
+    
   },
   methods: {
     refreshList: async function() {
       let backbone = new BACKBONE;     
       this.$data.scoreArr = await backbone.getScores(this.$props.hash, this.$props.difficulty, this.$data.pageIndex)
+      if (localStorage.getItem("steamID") != null){
+        this.$data.yourScore = await backbone.getUserScore(localStorage.getItem("steamID"),this.$props.hash, this.$props.difficulty)
+      }
       console.log("refreshed")
     }
   }
@@ -73,7 +90,7 @@ export default {
   position: relative;
   justify-content: center;
   width: auto;
-  height: 700px;
+  height: 100%;
   background: rgba(255, 255, 255, 0.1)
 }
 .difficultyId {

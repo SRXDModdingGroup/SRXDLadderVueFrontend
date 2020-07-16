@@ -10,11 +10,15 @@
         Charter: {{ SongInfoObj.charter }} <br>
       </body>
     </div>
-    <SongDetailHashSection :SongInfoObj="SongInfoObj" :hash="selectedHash" /> <br>
+    <SongDetailHashSection :SongInfoObj="SongInfoObj" :hash="selectedHash" />
+    <br> 
+    <input v-model="steamID" placeholder="Set your steamID here...">
+    <br><br>
     Hashes: <br>
     <button class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
       {{hash.levelHash}}
     </button>
+
   </div>
 </template>
 
@@ -32,19 +36,27 @@ export default {
   },
   data: function () {
     return {
-        SpinshareReference: this.$route.params.SpinshareReference,
-        selectedHash: this.$route.params.SongHash,
-        hashArray: [],
-        SongInfoObj: {},
+      SpinshareReference: this.$route.params.SpinshareReference,
+      selectedHash: this.$route.params.SongHash,
+      hashArray: [],
+      SongInfoObj: {},
+      steamID: ""
     }
   },
   mounted() {
+      if(localStorage.getItem('steamID') != null) this.$data.steamID = localStorage.getItem('steamID')
       let ssapi = new SSAPI;
       let backbone = new BACKBONE;
       ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
         this.$data.SongInfoObj = e.data
         this.$data.hashArray = await backbone.getHashes(this.$data.SpinshareReference);
       });
+  },
+  watch: {
+    steamID() {
+      if (this.$data.steamID == "") localStorage.removeItem('steamID')
+      else localStorage.setItem('steamID', this.$data.steamID)
+    }
   },
   methods: {
     hashChanger: function(hash) {

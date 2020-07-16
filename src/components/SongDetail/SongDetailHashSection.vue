@@ -69,7 +69,7 @@ export default {
 <style lang="less" scoped>
   .scoreSection {
     display: flex;
-    height: 700px;
+    height: 800px;
     margin-top: 4px;
     align-content: center;
     justify-content: center;

@@ -23,6 +23,15 @@ class BACKBONE {
             throw new Error(error);
         });
     }
+    async getUserScore(steamID, hash, difficulty) {
+        let backboneURL = this.urlBase + 'getUserScore?search='+hash+"&difficulty="+difficulty+"&steamID="+steamID;
+        return axios.get(backboneURL)
+        .then(function(response) {
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
 }
 
 module.exports = BACKBONE;
