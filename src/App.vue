@@ -3,7 +3,9 @@
     <div id="nav">
       <!-- <router-link to="/">Home</router-link> -->
     </div>
-    <router-view/>
+    <keep-alive include="Home">
+      <router-view/>
+    </keep-alive>
     <div class="footer"> SpinBoard - Freshly baked Alpha (0.1.0) by AyanAmy</div>
   </div>
 </template>

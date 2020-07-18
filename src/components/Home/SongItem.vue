@@ -1,7 +1,7 @@
 <template>
   <div class="songItem" v-on:click="getSpinshareReference">
     <div class="image">
-      <img :src="songObj.cover" alt="">
+      <img v-lazy="songObj.cover" alt="">
     </div>
     <body>{{songObj.title}}<br>{{songObj.artist}}</body>
   </div>
