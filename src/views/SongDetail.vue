@@ -1,15 +1,20 @@
 <template>
   <div class="songDetail">
-    <div class="songItem">
-      <div class="image">
-        <img :src="SongInfoObj.paths.cover" alt="">
+
+    <div class="header">
+      <div class="songItem">
+        <div class="image">
+          <img :src="SongInfoObj.paths.cover" alt="">
+        </div>
+        <body>
+          Name: {{ SongInfoObj.title }} <br>
+          By: {{ SongInfoObj.artist }} <br>
+          Charter: {{ SongInfoObj.charter }} <br>
+        </body>
       </div>
-      <body>
-        Name: {{ SongInfoObj.title }} <br>
-        By: {{ SongInfoObj.artist }} <br>
-        Charter: {{ SongInfoObj.charter }} <br>
-      </body>
+      <div class="homeButton" @click="backToHome"><span class="mdi mdi-home" /></div>
     </div>
+
     <SongDetailHashSection :SongInfoObj="SongInfoObj" :hash="selectedHash" />
     <br> 
     <input v-model="steamID" placeholder="Set your steamID here...">
@@ -62,50 +67,70 @@ export default {
     hashChanger: function(hash) {
       this.$router.push({ name: 'Song', params: {SpinshareReference: this.$route.params.SpinshareReference, SongHash: hash} })
       window.location.reload();
+    },
+    backToHome: function () {
+      this.$router.push({ name: 'Home', params: {} })
     }
   }
 }
 </script>
 <style scoped lang="less">
-.songItem {
+.header {
+  display: grid;
+  grid-template-columns: auto 75px;
   margin: 7px;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  width: auto;
-  height: 75px;
   margin-top: 10px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #e22c78;
-  grid-template-columns: 50px, 200px;
-  grid-template-rows: 100%;
 
-  & body {
-    display: flex;
-    width: 100%;
-    text-align: center;
-    align-items: center;
-    justify-items: center;
-    justify-content: center;
-    align-content: center;
-  }
-
-  & .image {
-    z-index: 50;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    justify-content: center;
-    align-content: center;
+  .songItem {
+    margin-right: 7px;
     overflow: hidden;
-    height: 100%;
-    width: 75px;
-    justify-self: flex-start;
-    & img {
-      height: 100%;
+    position: relative;
+    display: flex;
+    width: auto;
+    height: 75px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e22c78;
+
+    & body {
+      display: flex;
+      width: 100%;
+      text-align: center;
+      align-items: center;
+      justify-items: center;
+      justify-content: center;
+      align-content: center;
     }
+
+    & .image {
+      z-index: 50;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      justify-content: center;
+      align-content: center;
+      overflow: hidden;
+      height: 100%;
+      width: 75px;
+      justify-self: flex-start;
+      & img {
+        height: 100%;
+      }
+    }
+  }
+  .homeButton {
+    cursor: pointer;
+    height: auto;
+    border: 0px;
+    font-size: 25px;
+    border-radius: 6px;
+    color: #e22c78;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 }
 .songDetail {
