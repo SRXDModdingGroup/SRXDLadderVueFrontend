@@ -123,7 +123,7 @@ export default {
     cursor: pointer;
     height: auto;
     border: 0px;
-    font-size: 25px;
+    font-size: 24px;
     border-radius: 6px;
     color: #e22c78;
     background: rgba(255, 255, 255, 0.1);
