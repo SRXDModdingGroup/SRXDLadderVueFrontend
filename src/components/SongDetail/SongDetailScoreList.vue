@@ -29,9 +29,9 @@
 
       </table> 
       <div class="pagechange">
-        <input v-model="pageIndex" placeholder="Page No.">
+        Page: <input v-model="pageIndex" placeholder="Page No.">
         <button @click="refreshList()"><span class="mdi mdi-refresh" /></button>
-        <button @click="pageIndex--"><span class="mdi mdi-arrow-left" /></button>
+        <button :disabled="pageIndex == 1" @click="pageIndex--"><span class="mdi mdi-arrow-left" /></button>
         <button @click="pageIndex++"><span class="mdi mdi-arrow-right" /></button>
       </div>
     </div>
@@ -115,8 +115,13 @@ table {
   }
 }
 input {
-  width: 70px;
-  padding: 3px 15px;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  border-radius: 6px;
+  border: 0px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 30px;
+  padding: 5px 15px;
 }
 button {
   text-align: center;
@@ -130,7 +135,13 @@ button {
   background: rgba(255, 255, 255, 0.1);
   border: 0px;
 }
+button:disabled {
+  opacity: 0.5;
+}
 .pagechange {
+  align-items: center;
+  justify-content: center;
+  display: block;
   width: 100%;
   position: absolute;
   bottom: 8px;
