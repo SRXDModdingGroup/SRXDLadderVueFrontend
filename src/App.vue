@@ -34,7 +34,7 @@ body {
 }
 .footer {
   font-size: 10pt;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
   padding-top: 5px;
   z-index: 100;
   position: static;

@@ -122,6 +122,7 @@ input {
   background: rgba(255, 255, 255, 0.2);
   width: 30px;
   padding: 5px 15px;
+  text-align: center;
 }
 button {
   text-align: center;
@@ -137,6 +138,7 @@ button {
 }
 button:disabled {
   opacity: 0.5;
+  cursor: default;
 }
 .pagechange {
   align-items: center;

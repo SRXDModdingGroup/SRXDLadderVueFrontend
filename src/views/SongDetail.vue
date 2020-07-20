@@ -16,14 +16,17 @@
     </div>
 
     <SongDetailHashSection :SongInfoObj="SongInfoObj" :hash="selectedHash" />
-    <br> 
-    <input v-model="steamID" placeholder="Set your steamID here...">
-    <br><br>
-    Hashes: <br>
-    <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
-      {{hash.levelHash}} - {{hash.length}} Submitted Scores
-    </a>
 
+    <br> 
+    <div class="meta">
+      <input class="steamIDInput" v-model="steamID" placeholder="Set your steamID here..."><br>
+      Hashes:
+      <ul class="hashChangerSection">
+        <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
+          <li>{{hash.levelHash}} - {{hash.length}} Submitted Scores</li>
+        </a>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -136,6 +139,27 @@ export default {
 .songDetail {
   margin-top: 8px;
   margin-bottom: 8px;
+
+  & input {
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    border-radius: 6px;
+    border: 0px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 150px;
+    padding: 5px 15px;
+    text-align: center;
+  }
+  & .meta {
+    & .steamIDInput {
+      margin-bottom: 20px;
+    }
+    & .hashChangerSection {
+      margin: 0px;
+      padding: 0px;
+      line-height: 10pt;
+    }
+  }
 }
 button {
   height: 25px;
