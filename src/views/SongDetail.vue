@@ -19,11 +19,12 @@
 
     <br> 
     <div class="meta">
-      <input class="steamIDInput" v-model="steamID" placeholder="Set your steamID here...">
-      <a :href="'https://spinsha.re/song/'+SongInfoObj.id" class="metaOpen">Open on SpinSha.re</a>
-      <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen">Open in Client</a>
-      <a @click="refreshHashSection" class="metaOpen">Refresh All</a>
-      <br>
+      <div class="metaButtons">
+        <input class="steamIDInput" v-model="steamID" placeholder="Set your steamID here...">
+        <a :href="'https://spinsha.re/song/'+SongInfoObj.id" class="metaOpen">Open on SpinSha.re</a>
+        <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen"><span>Open in Client</span></a>
+        <a @click="refreshHashSection" class="metaOpen">Refresh All</a>
+      </div>
       Hashes:
       <ul class="hashChangerSection">
         <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
@@ -168,26 +169,31 @@ export default {
   }
   & .meta {
     display: inline-block;
-
-    & .steamIDInput {
+    & .metaButtons{
       margin-bottom: 20px;
+      & .metaOpen {
+        margin-bottom: 20px;
+        text-decoration: none;
+        cursor: pointer;
+        color: #e22c78;
+        border-radius: 6px;
+        border: 0px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 5px 15px;
+        text-align: center;
+        margin-left: 5px;
+        white-space: nowrap;
+      }
+      & .steamIDInput {
+        margin-bottom: 20px;
+      }
     }
     & .hashChangerSection {
       margin: 0px;
       padding: 0px;
       line-height: 10pt;
     }
-    & .metaOpen {
-      text-decoration: none;
-      cursor: pointer;
-      color: #e22c78;
-      border-radius: 6px;
-      border: 0px;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 4.5px 15px;
-      text-align: center;
-      margin-left: 5px;
-    }
+    
   }
 }
 button {
