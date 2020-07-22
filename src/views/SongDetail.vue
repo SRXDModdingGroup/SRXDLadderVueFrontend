@@ -19,7 +19,10 @@
 
     <br> 
     <div class="meta">
-      <input class="steamIDInput" v-model="steamID" placeholder="Set your steamID here..."><br>
+      <input class="steamIDInput" v-model="steamID" placeholder="Set your steamID here...">
+      <a :href="'https://spinsha.re/song/'+SongInfoObj.id" class="metaOpen">Open on SpinSha.re</a>
+      <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen">Open in client</a>
+      <br>
       Hashes:
       <ul class="hashChangerSection">
         <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
@@ -58,6 +61,7 @@ export default {
       ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
         this.$data.SongInfoObj = e.data
         this.$data.hashArray = await backbone.getHashes(this.$data.SpinshareReference);
+        console.log(this.$data.SongInfoObj);
       });
   },
   watch: {
@@ -151,6 +155,8 @@ export default {
     text-align: center;
   }
   & .meta {
+    display: inline-block;
+
     & .steamIDInput {
       margin-bottom: 20px;
     }
@@ -158,6 +164,17 @@ export default {
       margin: 0px;
       padding: 0px;
       line-height: 10pt;
+    }
+    & .metaOpen {
+      text-decoration: none;
+      cursor: pointer;
+      color: #e22c78;
+      border-radius: 6px;
+      border: 0px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4.5px 15px;
+      text-align: center;
+      margin-left: 5px;
     }
   }
 }
