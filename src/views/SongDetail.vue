@@ -15,7 +15,7 @@
       <div class="homeButton" @click="backToHome"><span class="mdi mdi-home" /></div>
     </div>
 
-    <SongDetailHashSection :SongInfoObj="SongInfoObj" :hash="selectedHash" />
+    <SongDetailHashSection :key="refreshHashSectionKey" :SongInfoObj="SongInfoObj" :hash="selectedHash" />
 
     <br> 
     <div class="meta">
@@ -51,7 +51,8 @@ export default {
       selectedHash: this.$route.params.SongHash,
       hashArray: [],
       SongInfoObj: {},
-      steamID: ""
+      steamID: "",
+      refreshHashSectionKey: 0
     }
   },
   mounted() {
@@ -61,13 +62,20 @@ export default {
       ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
         this.$data.SongInfoObj = e.data
         this.$data.hashArray = await backbone.getHashes(this.$data.SpinshareReference);
-        console.log(this.$data.SongInfoObj);
-      });
+      }).then(()=>{
+        if (this.$route.params.SongHash == "0"){
+          this.$data.selectedHash = this.$data.hashArray[0].levelHash;
+        }
+      })
   },
   watch: {
     steamID() {
       if (this.$data.steamID == "") localStorage.removeItem('steamID')
       else localStorage.setItem('steamID', this.$data.steamID)
+    },
+    selectedHash() {
+      console.log("hash changed")
+      this.$data.refreshHashSectionKey++
     }
   },
   methods: {
@@ -77,6 +85,11 @@ export default {
     },
     backToHome: function () {
       this.$router.push({ name: 'Home', params: {} })
+    },
+    delay: function(t, v) {
+      return new Promise(function(resolve) { 
+          setTimeout(resolve.bind(null, v), t)
+      });
     }
   }
 }
