@@ -1,19 +1,19 @@
 <template>
   <div class="scoreSection">
     <div class="difficulty" v-if="SongInfoObj.hasXDDifficulty">
-      <SongDetailScoreList :hash= "hash" :difficulty= "'XD'" :key="SongScoreListRefreshObj.XD"/>
+      <SongDetailScoreList :SongInfoObj="SongInfoObj" :hash= "hash" :difficulty= "'XD'" :key="SongScoreListRefreshObj.XD"/>
     </div>
     <div class="difficulty" v-if="SongInfoObj.hasExtremeDifficulty">
-      <SongDetailScoreList :hash= "hash" :difficulty= "'Expert'" :key="SongScoreListRefreshObj.Expert"/>
+      <SongDetailScoreList :SongInfoObj="SongInfoObj" :hash= "hash" :difficulty= "'Expert'" :key="SongScoreListRefreshObj.Expert"/>
     </div>
     <div class="difficulty" v-if="SongInfoObj.hasHardDifficulty">
-      <SongDetailScoreList :hash= "hash" :difficulty= "'Hard'" :key="SongScoreListRefreshObj.Hard"/>
+      <SongDetailScoreList :SongInfoObj="SongInfoObj" :hash= "hash" :difficulty= "'Hard'" :key="SongScoreListRefreshObj.Hard"/>
     </div>
     <div class="difficulty" v-if="SongInfoObj.hasNormalDifficulty">
-      <SongDetailScoreList :hash= "hash" :difficulty= "'Normal'" :key="SongScoreListRefreshObj.Normal"/>
+      <SongDetailScoreList :SongInfoObj="SongInfoObj" :hash= "hash" :difficulty= "'Normal'" :key="SongScoreListRefreshObj.Normal"/>
     </div>
     <div class="difficulty" v-if="SongInfoObj.hasEasyDifficulty">
-      <SongDetailScoreList :hash= "hash" :difficulty= "'Easy'" :key="SongScoreListRefreshObj.Easy"/>
+      <SongDetailScoreList :SongInfoObj="SongInfoObj" :hash= "hash" :difficulty= "'Easy'" :key="SongScoreListRefreshObj.Easy"/>
     </div>
   </div>
 </template>

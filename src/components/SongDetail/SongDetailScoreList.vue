@@ -30,9 +30,10 @@
       </table> 
       <div class="pagechange">
         Page: <input v-model="pageIndex" placeholder="Page No.">
-        <button @click="refreshList()"><span class="mdi mdi-refresh" /></button>
         <button :disabled="pageIndex == 1" @click="pageIndex--"><span class="mdi mdi-arrow-left" /></button>
         <button @click="pageIndex++"><span class="mdi mdi-arrow-right" /></button>
+        <button @click="refreshList()"><span class="mdi mdi-refresh" /></button>
+        <button @click="playDiff">a</button>
       </div>
     </div>
 </template>
@@ -49,6 +50,7 @@ export default {
     SongDetailScore
   },
   props: {
+    'SongInfoObj': Object,
     'difficulty': String,
     'hash': String
   },
@@ -78,6 +80,9 @@ export default {
       this.$data.emptyArr = new Array(15 - this.$data.scoreArr.length)
       console.log("refreshed");
       return;
+    },
+    playDiff: function() {
+      location.href = 'steam://run/1058830//play "' + this.$props.SongInfoObj.fileReference + '.srtb" difficulty ' + this.$props.difficulty;
     }
   },
 }
@@ -96,6 +101,7 @@ export default {
   padding: 8px;
 }
 table {
+  height: 88%;
   margin: auto;
   position: relative;
   border: 1px solid white;

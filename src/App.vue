@@ -44,4 +44,7 @@ body {
   color: white;
   text-align: center;
 }
+textarea:focus, input:focus{
+  outline: none;
+}
 </style>
