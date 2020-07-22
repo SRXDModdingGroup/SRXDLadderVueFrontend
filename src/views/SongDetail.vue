@@ -21,7 +21,8 @@
     <div class="meta">
       <input class="steamIDInput" v-model="steamID" placeholder="Set your steamID here...">
       <a :href="'https://spinsha.re/song/'+SongInfoObj.id" class="metaOpen">Open on SpinSha.re</a>
-      <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen">Open in client</a>
+      <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen">Open in Client</a>
+      <a @click="refreshHashSection" class="metaOpen">Refresh All</a>
       <br>
       Hashes:
       <ul class="hashChangerSection">
@@ -75,7 +76,7 @@ export default {
     },
     selectedHash() {
       console.log("hash changed")
-      this.$data.refreshHashSectionKey++
+      this.refreshHashSection();
     }
   },
   methods: {
@@ -86,10 +87,8 @@ export default {
     backToHome: function () {
       this.$router.push({ name: 'Home', params: {} })
     },
-    delay: function(t, v) {
-      return new Promise(function(resolve) { 
-          setTimeout(resolve.bind(null, v), t)
-      });
+    refreshHashSection: function() {
+      this.$data.refreshHashSectionKey++
     }
   }
 }
