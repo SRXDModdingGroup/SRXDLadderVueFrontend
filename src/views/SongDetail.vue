@@ -25,12 +25,14 @@
         <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen"><span>Open in Client</span></a>
         <a @click="refreshHashSection" class="metaOpen">Refresh All</a>
       </div>
-      Hashes:
-      <ul class="hashChangerSection">
-        <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
-          <li>{{hash.levelHash}} - {{hash.length}} Submitted Scores</li>
-        </a>
-      </ul>
+      <div>
+        Hashes:
+        <ul class="hashChangerSection">
+          <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
+            <li>{{hash.levelHash}} - {{hash.length}} Submitted Scores</li>
+          </a>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -172,7 +174,6 @@ export default {
     & .metaButtons{
       margin-bottom: 20px;
       & .metaOpen {
-        margin-bottom: 20px;
         text-decoration: none;
         cursor: pointer;
         color: #e22c78;
