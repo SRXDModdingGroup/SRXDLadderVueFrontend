@@ -79,7 +79,7 @@ export default {
       border-radius: 6px;
       margin: 4px;
       min-width: 370px;
-      height: 705px;
+      height: 760px;
     }
   }
 </style>

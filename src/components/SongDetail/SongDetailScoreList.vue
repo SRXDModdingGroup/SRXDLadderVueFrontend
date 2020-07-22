@@ -33,7 +33,7 @@
         <button :disabled="pageIndex == 1" @click="pageIndex--"><span class="mdi mdi-arrow-left" /></button>
         <button @click="pageIndex++"><span class="mdi mdi-arrow-right" /></button>
         <button @click="refreshList()"><span class="mdi mdi-refresh" /></button>
-        <button @click="playDiff">a</button>
+        <button @click="playDiff"><span class="mdi mdi-play" /></button>
       </div>
     </div>
 </template>
@@ -101,7 +101,7 @@ export default {
   padding: 8px;
 }
 table {
-  height: 88%;
+  height: 670px;
   margin: auto;
   position: relative;
   border: 1px solid white;
