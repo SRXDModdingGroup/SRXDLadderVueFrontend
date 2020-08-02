@@ -9,7 +9,8 @@
             {{score.spinshareData.artist}}<br>
             Charter: {{score.spinshareData.charter}}<br>
             Hash: {{score.levelHash}}<br>
-            {{score.time}}
+            {{score.time}}<br>
+            Score: {{score.score}}
         </body>
       </div>
   </section>
@@ -44,11 +45,8 @@ export default {
             ssapi.getSongDetail(message.levelName).then(element => {
                 message.spinshareData = element.data
                 var time = new Date(message.time);
-                console.log(this.splitTime(time))
-                var dd = time.getDate();
-                var mm = time.getMonth()+1; 
-                var yyyy = time.getFullYear();
-                message.time = dd+'/'+mm+'/'+yyyy;
+                var timeobject = this.splitTime(time)
+                message.time = timeobject.dd+'/'+timeobject.mm+'/'+timeobject.yyyy+' '+('0' + timeobject.hour).slice(-2)+':'+('0' + timeobject.minute).slice(-2)+':'+('0' + timeobject.second).slice(-2) + " GMT" + Math.abs(timeobject.timezone / 60);
                 this.$data.scores.push(message)
             })
         }
@@ -72,7 +70,10 @@ export default {
         var dd = time.getDate();
         var mm = time.getMonth()+1; 
         var yyyy = time.getFullYear();
-        return {dd, mm, yyyy, timezone};
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+        return {dd, mm, yyyy, hour, minute, second, timezone};
       }
   }
 }
@@ -86,7 +87,7 @@ export default {
   position: relative;
   display: flex;
   width: 100%;
-  height: 100px;
+  height: 120px;
   margin-top: 10px;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.1);
@@ -96,6 +97,7 @@ export default {
   grid-template-rows: 100%;
 
   & body {
+    font-size: 15px;
     display: flex;
     width: 100%;
     text-align: center;
@@ -115,7 +117,7 @@ export default {
     align-content: center;
     overflow: hidden;
     height: 100%;
-    width: 100px;
+    width: 120px;
     justify-self: flex-start;
     & img {
       height: 100%;
