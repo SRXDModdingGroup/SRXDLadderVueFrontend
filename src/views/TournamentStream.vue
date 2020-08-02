@@ -9,8 +9,8 @@
             {{score.spinshareData.artist}}<br>
             Charter: {{score.spinshareData.charter}}<br>
             Hash: {{score.levelHash}}<br>
-            {{score.time}}<br>
-            Score: {{score.score}}
+            {{score.time}} SteamID:{{score.steamID}}<br>
+            Player: {{score.steamUsername}} Score: {{score.score}}
         </body>
       </div>
   </section>
@@ -98,7 +98,7 @@ export default {
 
   & body {
     font-size: 15px;
-    display: flex;
+    display: inline-flex;
     width: 100%;
     text-align: center;
     align-items: center;
