@@ -1,6 +1,5 @@
 <template>
     <div class="list">
-      <body> Popular Songs: <br> </body>
       <SongItem v-for="song in songArr" :key="song.id" :songObj="song"/>
     </div>
 </template>
@@ -33,7 +32,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .list {
-  padding-top: 10px;
+  
   body {
     margin-top: 20px;
     text-align: start;

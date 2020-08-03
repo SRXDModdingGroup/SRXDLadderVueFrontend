@@ -6,7 +6,7 @@
     <keep-alive include="Home">
       <router-view/>
     </keep-alive>
-    <div class="footer"> SpinBoard - Freshly baked Alpha (0.1.0) by AyanAmy</div>
+    <div class="footer"> SpinBoard - Freshly baked Alpha (1.0.0) by AyanAmy</div>
   </div>
 </template>
 

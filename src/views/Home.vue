@@ -3,6 +3,7 @@
       <div class="search">
         <input v-model="songSearchString" v-on:change="getSongs" placeholder="Search for Songs"/>
       </div>
+      <StaticHomeComponent v-if="!isSearchActive" />
       <DefaultSongList v-if="!isSearchActive"/>
       <SearchSongList v-if="isSearchActive" v-bind:songArr="songArr"/>
   </div>
@@ -13,13 +14,15 @@
 
 import DefaultSongList from '@/components/Home/DefaultSongList.vue'
 import SearchSongList from '@/components/Home/SearchSongList.vue'
+import StaticHomeComponent from '@/components/Home/StaticHomeComponent.vue'
 import SSAPI from '@/modules/module.api.js'
 
 export default {
   name: 'Home',
   components: {
     DefaultSongList,
-    SearchSongList
+    SearchSongList,
+    StaticHomeComponent
   },
   data: function () {
     return {
