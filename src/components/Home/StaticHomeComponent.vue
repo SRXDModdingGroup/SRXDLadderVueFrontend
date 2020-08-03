@@ -3,7 +3,7 @@
   <div class="buttonItem" v-on:click="open('https://cdn.discordapp.com/attachments/707384465801871440/739726041358008400/SRXDLadder.dll')">
     <body><span class="mdi mdi-download" /></body>
   </div>
-  <div class="buttonItem" v-on:click="open()">
+  <div class="buttonItem" v-on:click="open('https://gist.github.com/jy1263/35a9cadbdd25451d9de56054207ee6c5')">
     <body><span class="mdi mdi-help-circle-outline" /></body>
   </div>
   <div class="buttonItem" v-on:click="openTournament()">
