@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import '@mdi/font/css/materialdesignicons.css'
 import SSAPI from '@/modules/module.api.js'
 import BACKBONE from '@/modules/module.backbone.js'
 import axios from 'axios'
