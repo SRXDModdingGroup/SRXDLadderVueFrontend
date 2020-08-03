@@ -9,9 +9,10 @@
             {{score.spinshareData.artist}}<br>
             Charter: {{score.spinshareData.charter}}<br>
             Hash: {{score.levelHash}}<br>
-            {{score.time}} SteamID:{{score.steamID}}<br>
-            Player: <a>{{score.steamUsername}}</a> Score: {{score.score}} 
-             - <span :style="{ color: '#228B22'}" v-if="score.hashVerified">Verified</span>
+            {{score.time}}<br>
+            SteamID:{{score.steamID}}<br>
+            Player: <a :href="'https://steamcommunity.com/profiles/'+score.steamID">{{score.steamUsername}}</a> Score: {{score.score}} 
+            <span :style="{color: 'rgba(255, 255, 255, 0.25)'}"> - </span><span :style="{ color: '#228B22'}" v-if="score.hashVerified">Verified</span>
             <span :style="{ color: '#8B0000'}" v-if="!score.hashVerified"> Hash Not Verifed!</span>
         </body>
       </div>
@@ -115,7 +116,7 @@ export default {
   & body {
     align-self: center;
     justify-self: center;
-    font-size: 15px;
+    font-size: 14px;
     display: block;
     width: auto;
     height: auto;
@@ -124,6 +125,13 @@ export default {
     justify-items: center;
     justify-content: center;
     align-content: center;
+    & a {
+      margin-right: 10px;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   & .image {
