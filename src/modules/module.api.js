@@ -233,6 +233,22 @@ class SSAPI {
             throw new Error(error);
         });
     }
+
+    async getTournamentMappool() {
+        let apiPath = this.apiBase + "tournament/mappool";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
 }
 
 module.exports = SSAPI;
