@@ -80,7 +80,10 @@ export default {
 </script>
 <style scoped lang="less">
 .tournamentStream {
-    margin: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 8px;
+  flex-direction: column-reverse;
 }
 .songItem {
   overflow: hidden;
