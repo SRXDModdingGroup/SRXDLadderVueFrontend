@@ -1,12 +1,12 @@
 <template>
 <section class="container">
-  <div class="buttonItem" v-on:click="open(downloadFile)">
+  <div class="buttonItem" v-on:click="open('https://cdn.discordapp.com/attachments/707384465801871440/739726041358008400/SRXDLadder.dll')">
     <body><span class="mdi mdi-download" /></body>
   </div>
   <div class="buttonItem" v-on:click="open()">
     <body><span class="mdi mdi-help-circle-outline" /></body>
   </div>
-  <div class="buttonItem" v-on:click="open('https://spinsha.re/')">
+  <div class="buttonItem" v-on:click="openTournament()">
     <body><span class="mdi mdi-trophy-variant-outline" /></body>
   </div>
   <div class="buttonItem" v-on:click="open('https://spinsha.re/')">
@@ -34,6 +34,9 @@ export default {
     methods: {
         open: function(e) {
             window.location = e;
+        },
+        openTournament: function() {
+            this.$router.push({ name: 'TournamentStream' })
         }
     }
 }
