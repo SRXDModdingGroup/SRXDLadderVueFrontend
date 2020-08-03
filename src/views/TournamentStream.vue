@@ -57,7 +57,6 @@ export default {
                 var timeobject = this.splitTime(time)
                 message.time = timeobject.dd+'/'+timeobject.mm+'/'+timeobject.yyyy+' '+('0' + timeobject.hour).slice(-2)+':'+('0' + timeobject.minute).slice(-2)+':'+('0' + timeobject.second).slice(-2) + " GMT" + Math.abs(timeobject.timezone / 60);
                 this.$data.scores.push(message)
-                console.log(message)
             })
         }
         else if(message.data == "ping") {
