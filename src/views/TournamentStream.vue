@@ -10,7 +10,9 @@
             Charter: {{score.spinshareData.charter}}<br>
             Hash: {{score.levelHash}}<br>
             {{score.time}} SteamID:{{score.steamID}}<br>
-            Player: {{score.steamUsername}} Score: {{score.score}}
+            Player: <a>{{score.steamUsername}}</a> Score: {{score.score}} 
+             - <span :style="{ color: '#228B22'}" v-if="score.hashVerified">Verified</span>
+            <span :style="{ color: '#8B0000'}" v-if="!score.hashVerified"> Hash Not Verifed!</span>
         </body>
       </div>
   </section>
@@ -27,6 +29,7 @@ export default {
   },
   data: function () {
     return {
+        tournamentSongs: [],
         scores: [],
         urlBase: ""
     }
@@ -35,6 +38,7 @@ export default {
     var ssapi = new SSAPI;
     var backbone = new BACKBONE;
 
+    ssapi.getTournamentMappool().then(e => {this.$data.tournamentSongs = e.data})
     this.$data.urlBase = backbone.urlBase;
     var wsurl = backbone.urlBase.replace("https://", "wss://")
 
@@ -43,11 +47,17 @@ export default {
         if(message.data.startsWith("{")) {
             var message = JSON.parse(message.data)
             ssapi.getSongDetail(message.levelName).then(element => {
+                message.hashVerified = false;
+                var tournaSongObj = this.$data.tournamentSongs.filter(songobj => songobj.fileReference == message.levelName)
+                if (tournaSongObj.length != 0 && message.levelHash == tournaSongObj[0].srtbMD5) {
+                  message.hashVerified = true;
+                }
                 message.spinshareData = element.data
                 var time = new Date(message.time);
                 var timeobject = this.splitTime(time)
                 message.time = timeobject.dd+'/'+timeobject.mm+'/'+timeobject.yyyy+' '+('0' + timeobject.hour).slice(-2)+':'+('0' + timeobject.minute).slice(-2)+':'+('0' + timeobject.second).slice(-2) + " GMT" + Math.abs(timeobject.timezone / 60);
                 this.$data.scores.push(message)
+                console.log(message)
             })
         }
         else if(message.data == "ping") {
@@ -86,6 +96,10 @@ export default {
   flex-direction: column-reverse;
 }
 .songItem {
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -100,9 +114,12 @@ export default {
   grid-template-rows: 100%;
 
   & body {
+    align-self: center;
+    justify-self: center;
     font-size: 15px;
-    display: inline-flex;
-    width: 100%;
+    display: block;
+    width: auto;
+    height: auto;
     text-align: center;
     align-items: center;
     justify-items: center;
@@ -111,6 +128,7 @@ export default {
   }
 
   & .image {
+    left: 0;
     z-index: 50;
     position: absolute;
     display: flex;
