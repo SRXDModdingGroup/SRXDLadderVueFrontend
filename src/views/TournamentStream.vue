@@ -1,21 +1,27 @@
 <template>
   <section class="tournamentStream">
-      <div class="songItem" v-for="(score, index) in scores" @click="open(index)">
-        <div class="image">
-            <img v-lazy="score.spinshareData.paths.cover" alt="">
+      <transition-group name="slide-fade" class="animcontainer" tag="div">
+        <div class="songItem" 
+        v-for="(score, index) in scores" 
+        @click="open(index)"
+        :style="[(index == (scores.length - 1)) ? {opacity:1} : {opacity: 0.7}]"
+        :key="score">
+          <div class="image">
+              <img v-lazy="score.spinshareData.paths.cover" alt="">
+          </div>
+          <body>
+              {{score.spinshareData.title}} by
+              {{score.spinshareData.artist}}<br>
+              Charter: {{score.spinshareData.charter}}<br>
+              Hash: {{score.levelHash}}<br>
+              {{score.time}}<br>
+              SteamID:{{score.steamID}}<br>
+              Player: <a :href="'https://steamcommunity.com/profiles/'+score.steamID">{{score.steamUsername}}</a> Score: {{score.score}} 
+              <span :style="{color: 'rgba(255, 255, 255, 0.25)'}"> - </span><span :style="{ color: '#228B22'}" v-if="score.hashVerified">Verified</span>
+              <span :style="{ color: '#8B0000'}" v-if="!score.hashVerified"> Hash Not Verifed!</span>
+          </body>
         </div>
-        <body>
-            {{score.spinshareData.title}} by
-            {{score.spinshareData.artist}}<br>
-            Charter: {{score.spinshareData.charter}}<br>
-            Hash: {{score.levelHash}}<br>
-            {{score.time}}<br>
-            SteamID:{{score.steamID}}<br>
-            Player: <a :href="'https://steamcommunity.com/profiles/'+score.steamID">{{score.steamUsername}}</a> Score: {{score.score}} 
-            <span :style="{color: 'rgba(255, 255, 255, 0.25)'}"> - </span><span :style="{ color: '#228B22'}" v-if="score.hashVerified">Verified</span>
-            <span :style="{ color: '#8B0000'}" v-if="!score.hashVerified"> Hash Not Verifed!</span>
-        </body>
-      </div>
+      </transition-group>
   </section>
 </template>
 
@@ -32,7 +38,8 @@ export default {
     return {
         tournamentSongs: [],
         scores: [],
-        urlBase: ""
+        urlBase: "",
+        key: 0,
     }
   },
   mounted() {
@@ -89,7 +96,7 @@ export default {
 }
 </script>
 <style scoped lang="less">
-.tournamentStream {
+.animcontainer {
   display: flex;
   flex-wrap: wrap;
   margin: 8px;
@@ -162,5 +169,16 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(-2000px);
+  opacity: 0;
 }
 </style>
