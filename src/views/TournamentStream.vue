@@ -15,8 +15,8 @@
               Charter: {{score.spinshareData.charter}}<br>
               Hash: {{score.levelHash}}<br>
               {{score.time}}<br>
-              SteamID:{{score.steamID}}<br>
-              Player: <a :href="'https://steamcommunity.com/profiles/'+score.steamID">{{score.steamUsername}}</a> Score: {{score.score}} 
+              Player: <a :href="'https://steamcommunity.com/profiles/'+score.steamID">{{score.steamUsername}}</a> SteamID:{{score.steamID}} <br>
+              <span class="combotext">Combo: {{score.score}}</span>  Score: {{score.score}} 
               <span :style="{color: 'rgba(255, 255, 255, 0.25)'}"> - </span><span :style="{ color: '#228B22'}" v-if="score.hashVerified">Verified</span>
               <span :style="{ color: '#8B0000'}" v-if="!score.hashVerified"> Hash Not Verifed!</span>
           </body>
@@ -46,7 +46,8 @@ export default {
     var ssapi = new SSAPI;
     var backbone = new BACKBONE;
 
-    ssapi.getTournamentMappool().then(e => {this.$data.tournamentSongs = e.data})
+    ssapi.getTournamentMappool().then(e => {this.$data.tournamentSongs = e.data;})
+    
     this.$data.urlBase = backbone.urlBase;
     var wsurl = backbone.urlBase.replace("https://", "wss://")
 
@@ -68,6 +69,7 @@ export default {
             })
         }
         else if(message.data == "ping") {
+            console.log(this.$data.scores)
             console.log("pinged")
             connection.send("pong");
         }
@@ -133,11 +135,14 @@ export default {
     justify-content: center;
     align-content: center;
     & a {
-      margin-right: 10px;
+      margin-right: 4px;
       text-decoration: none;
       &:hover {
         text-decoration: underline;
       }
+    }
+    & .combotext {
+      margin-right: 4px;
     }
   }
 
