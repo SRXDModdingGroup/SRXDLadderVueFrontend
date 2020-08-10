@@ -6,11 +6,13 @@
           <th>No.</th>
           <th>Score:</th> 
           <th>Steam Username:</th> 
+          <th>Rank:</th>
         </tr>
 
         <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
 
         <tr v-for="(empty, index) in emptyArr" :key="index">
+          <th>-</th>
           <th>-</th>
           <th>-</th>
           <th>-</th>
@@ -22,6 +24,7 @@
 
         <SongDetailScore v-if="yourScore.length > 0" :scoreObj="yourScore[0]"/>
         <tr v-else>
+          <th>-</th>
           <th>-</th>
           <th>-</th>
           <th>-</th>
@@ -77,7 +80,7 @@ export default {
       if (localStorage.getItem("steamID") != null){
         this.$data.yourScore = await backbone.getUserScore(localStorage.getItem("steamID"),this.$props.hash, this.$props.difficulty)
       }
-      this.$data.emptyArr = new Array(15 - this.$data.scoreArr.length)
+      this.$data.emptyArr = new Array(12 - this.$data.scoreArr.length)
       console.log("refreshed");
       return;
     },

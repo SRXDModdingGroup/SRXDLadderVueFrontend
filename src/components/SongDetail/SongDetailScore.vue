@@ -3,6 +3,7 @@
       <th>{{scoreObj.index}}</th> 
       <th>{{scoreObj.score}}</th> 
       <th><a :href="'https://steamcommunity.com/profiles/'+ this.$props.scoreObj.steamID">{{scoreObj.steamUsername}}</a></th> 
+      <th>{{rank}}</th> 
     </tr>
 </template>
 
@@ -18,9 +19,27 @@ export default {
   },
   data: function(){
     return{
+      rank: ""
     }
   },
   mounted() {
+    this.$data.rank = this.getRank(this.$props.scoreObj.rank)
+  },
+  methods: {
+    getRank: function(rankIndex) {
+      switch (rankIndex)
+      {
+          case 1: return "D";
+          case 2: return "C";
+          case 3: return "C+";
+          case 4: return "B";
+          case 5: return "A";
+          case 6: return "A+";
+          case 7: return "S";
+          case 8: return "S+";
+          default: return "Err";
+      }
+    } 
   }
 }
 </script>
