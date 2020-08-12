@@ -34,7 +34,7 @@
       <div class="pagechange">
         Page: <input v-model="pageIndex" placeholder="Page No.">
         <button :disabled="pageIndex == 1" @click="pageIndex--"><span class="mdi mdi-arrow-left" /></button>
-        <button @click="pageIndex++"><span class="mdi mdi-arrow-right" /></button>
+        <button :disabled="(pageIndex-1) >= maxPage" @click="pageIndex++"><span class="mdi mdi-arrow-right" /></button>
         <button @click="refreshList()"><span class="mdi mdi-refresh" /></button>
         <button @click="playDiff"><span class="mdi mdi-play" /></button>
       </div>
@@ -59,6 +59,7 @@ export default {
   },
   data: function(){
     return{
+      maxPage: 0,
       pageIndex: 1,
       scoreArr: [],
       yourScore: [],
@@ -81,6 +82,7 @@ export default {
         this.$data.yourScore = await backbone.getUserScore(localStorage.getItem("steamID"),this.$props.hash, this.$props.difficulty)
       }
       this.$data.emptyArr = new Array(12 - this.$data.scoreArr.length)
+      if (this.$data.scoreArr[0]) this.$data.maxPage = this.$data.scoreArr[0].maxPage
       console.log("refreshed");
       return;
     },
