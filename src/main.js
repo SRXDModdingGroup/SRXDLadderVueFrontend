@@ -13,3 +13,5 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+console.log("Instance: " + process.env.NODE_ENV);
