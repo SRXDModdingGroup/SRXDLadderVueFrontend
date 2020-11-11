@@ -6,7 +6,7 @@
     <keep-alive include="Home">
       <router-view/>
     </keep-alive>
-    <div class="footer"> SpinBoard - Freshly baked Alpha (1.5.0) by AyanAmy</div>
+    <div class="footer"> SpinBoard - Freshly Baked by <a href="https://ayanamy.is-a.dev/">AyanAmy</a></div>
   </div>
 </template>
 
