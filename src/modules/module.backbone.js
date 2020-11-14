@@ -2,8 +2,13 @@ const axios = require('axios');
 
 class BACKBONE {
     constructor() {
-        this.urlBase = "https://spin-board.herokuapp.com/api/";
-        // this.urlBase = "http://localhost:3000/api/";
+        
+        if (process.env.NODE_ENV == "development") {
+            this.urlBase = "http://localhost:3000/api/";
+        }
+        else {
+            this.urlBase = "https://spin-board.herokuapp.com/api/";
+        }
     }
 
     async getHashes(search) {
