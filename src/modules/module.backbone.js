@@ -2,13 +2,13 @@ const axios = require('axios');
 
 class BACKBONE {
     constructor() {
-        
         if (process.env.NODE_ENV == "development") {
             this.urlBase = "http://localhost:3000/api/";
         }
         else {
             this.urlBase = "https://spin-board.herokuapp.com/api/";
         }
+        this.multiHashBool = (localStorage.getItem('multiHash') === "true");
     }
 
     async getHashes(search) {
@@ -22,6 +22,7 @@ class BACKBONE {
     }
     async getScores(hash, difficulty, pageIndex) {
         let backboneURL = this.urlBase + 'getScores?search='+hash+"&difficulty="+difficulty+"&page="+pageIndex;
+        if (this.multiHashBool) backboneURL = backboneURL + "&multiHash=true"
         return axios.get(backboneURL)
         .then(function(response) {
             return response.data;
@@ -31,6 +32,7 @@ class BACKBONE {
     }
     async getUserScore(steamID, hash, difficulty) {
         let backboneURL = this.urlBase + 'getUserScore?search='+hash+"&difficulty="+difficulty+"&steamID="+steamID;
+        if (this.multiHashBool) backboneURL = backboneURL + "&multiHash=true"
         return axios.get(backboneURL)
         .then(function(response) {
             return response.data;
