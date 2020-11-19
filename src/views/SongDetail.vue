@@ -22,10 +22,11 @@
       <div class="metaButtons">
         <input class="steamIDInput" v-model="steamID" placeholder="Set your steamID here...">
         <a :href="'https://spinsha.re/song/'+SongInfoObj.id" class="metaOpen">Open on SpinSha.re</a>
-        <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen"><span>Open in Client</span></a>
-        <a @click="refreshHashSection" class="metaOpen">Refresh All</a>
+        <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen"><button>Open in Client</button></a>
+        <button @click="refreshHashSection" class="metaOpen">Refresh All</button>
+        <button class="metaOpen">Enable Merging of Similar Versions (Beta) <input class= "checkbox" type="checkbox" v-model="multiHash"></button>
       </div>
-      <div>
+      <div class="hashFooter">
         Hashes:
         <ul class="hashChangerSection">
           <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
@@ -56,11 +57,16 @@ export default {
       hashArray: [],
       SongInfoObj: {},
       steamID: "",
-      refreshHashSectionKey: 0
+      refreshHashSectionKey: 0,
+      multiHash: false
     }
   },
   mounted() {
       if(localStorage.getItem('steamID') != null) this.$data.steamID = localStorage.getItem('steamID')
+      if(localStorage.getItem('multiHash') != null) this.$data.multiHash = (localStorage.getItem('multiHash') == "true")
+      else {
+        localStorage.setItem('multiHash', this.$data.multiHash)
+      }
       let ssapi = new SSAPI;
       let backbone = new BACKBONE;
       ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
@@ -76,6 +82,9 @@ export default {
     steamID() {
       if (this.$data.steamID == "") localStorage.removeItem('steamID')
       else localStorage.setItem('steamID', this.$data.steamID)
+    },
+    multiHash() {
+      localStorage.setItem('multiHash', this.$data.multiHash);
     },
     selectedHash() {
       console.log("hash changed")
@@ -159,7 +168,7 @@ export default {
   margin-top: 8px;
   margin-bottom: 8px;
 
-  & input {
+  & .steamIDInput {
     font-family: 'Open Sans', sans-serif;
     color: white;
     border-radius: 6px;
@@ -172,7 +181,6 @@ export default {
   & .meta {
     display: inline-block;
     & .metaButtons{
-      margin-bottom: 20px;
       & .metaOpen {
         text-decoration: none;
         cursor: pointer;
@@ -183,10 +191,13 @@ export default {
         padding: 5px 15px;
         text-align: center;
         margin-left: 5px;
-        white-space: nowrap;
+        margin-bottom: 10px;
+        & .checkbox {
+          transform: translateY(1px);
+        }
       }
       & .steamIDInput {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
       }
     }
     & .hashChangerSection {
@@ -194,13 +205,23 @@ export default {
       padding: 0px;
       line-height: 10pt;
     }
-    
   }
-}
-button {
-  height: 25px;
 }
 .hashChanger {
   margin: 10px;
+}
+.hashFooter {
+  margin: 10px;
+}
+button {
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+  color: #e22c78;
+  text-align: center;
+  font-size: 12pt;
+  background: rgba(255, 255, 255, 0);
+  border: 0;
+  outline: none;
+  box-shadow: none;
 }
 </style>
