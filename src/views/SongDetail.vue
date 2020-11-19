@@ -24,7 +24,7 @@
         <a :href="'https://spinsha.re/song/'+SongInfoObj.id" class="metaOpen">Open on SpinSha.re</a>
         <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen"><button>Open in Client</button></a>
         <button @click="refreshHashSection" class="metaOpen">Refresh All</button>
-        <button class="metaOpen">Enable Merging of Similar Versions (Beta) <input class= "checkbox" type="checkbox" v-model="multiHash"></button>
+        <button @click="toggleMultiHash" class="metaOpen" >Enable Merging of Similar Versions (Beta) <input class= "checkbox" type="checkbox" v-model="multiHash"></button>
       </div>
       <div class="hashFooter">
         Hashes:
@@ -101,6 +101,9 @@ export default {
     },
     refreshHashSection: function() {
       this.$data.refreshHashSectionKey++
+    },
+    toggleMultiHash: function() {
+      this.$data.multiHash = !this.$data.multiHash;
     }
   }
 }
