@@ -22,7 +22,7 @@ export default {
   },
   mounted() {
     var ssapi = new SSAPI;
-    ssapi.getPopularSongs(0).then(e => {
+    ssapi.getHotSongs(0).then(e => {
       this.$data.songArr = e;
     })
   }
