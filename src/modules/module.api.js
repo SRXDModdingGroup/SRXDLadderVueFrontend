@@ -1,9 +1,20 @@
 const axios = require('axios');
 
 class SSAPI {
-    constructor() {
+    isDev() {
+        if(process.env.NODE_ENV !== 'development') {
+            return false;
+        } else {
+            return false;
+        }
+    }
 
-        this.apiBase = "https://spinsha.re/api/";
+    constructor() {
+        if(this.isDev()) {
+            this.apiBase = "https://spinsha.re/api/";
+        } else {
+            this.apiBase = "https://spinsha.re/api/";
+        }
         this.supportedVersion = 1;
     }
 
@@ -103,24 +114,8 @@ class SSAPI {
         });
     }
 
-    async getHotSongs(_offset) {
-        let apiPath = this.apiBase + "songs/hot/" + _offset;
-        let supportedVersion = this.supportedVersion;
-
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
-    }
-
-    async getPopularSongs(_offset) {
-        let apiPath = this.apiBase + "songs/popular/" + _offset;
+    async getHotThisWeekSongs(_offset) {
+        let apiPath = this.apiBase + "songs/hotThisWeek/" + _offset;
         let supportedVersion = this.supportedVersion;
 
         return axios.get(apiPath)
@@ -185,6 +180,54 @@ class SSAPI {
 
     async getUserDetail(_userId) {
         let apiPath = this.apiBase + "user/" + _userId;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getUserCharts(_userId) {
+        let apiPath = this.apiBase + "user/" + _userId + "/charts";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getUserReviews(_userId) {
+        let apiPath = this.apiBase + "user/" + _userId + "/reviews";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getUserSpinPlays(_userId) {
+        let apiPath = this.apiBase + "user/" + _userId + "/spinplays";
         let supportedVersion = this.supportedVersion;
 
         return axios.get(apiPath)
