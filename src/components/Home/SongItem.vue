@@ -28,10 +28,14 @@ export default {
       let ssapi = new SSAPI;
       let backbone = new BACKBONE;
       ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
-        let firstHash = await backbone.getHashes(e.data.fileReference);
-        if (firstHash.length == 0) {firstHash = "0"}
-        else {firstHash = firstHash[0].levelHash}
-        this.$router.push({ name: 'Song', params: {SpinshareReference: e.data.fileReference, SongHash: firstHash} })
+        let hashArray = await backbone.getHashes(e.data.fileReference);
+        let hashString = new String();
+        if (hashArray.includes(e.data.updateHash)){
+          hashString = e.data.updateHash;
+        }
+        else if (hashArray.length == 0) {hashArray = "0"}
+        else {hashString = hashArray[0].levelHash}
+        this.$router.push({ name: 'Song', params: {SpinshareReference: e.data.fileReference, SongHash: hashString} })
       });
     },
     getHash: async function() {
