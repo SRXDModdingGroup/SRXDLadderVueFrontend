@@ -29,8 +29,8 @@
       <div class="hashFooter">
         Hashes:
         <ul class="hashChangerSection">
-          <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)">
-            <li>{{hash.levelHash}} - {{hash.length}} Submitted Scores</li>
+          <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)" :key="index">
+            <li><span v-if="hash.newest">Newest - </span>{{hash.levelHash}} - {{hash.length}} Submitted Scores</li>
           </a>
         </ul>
       </div>
@@ -72,6 +72,14 @@ export default {
       ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
         this.$data.SongInfoObj = e.data
         this.$data.hashArray = await backbone.getHashes(this.$data.SpinshareReference);
+        
+        //Displays if newest
+        this.$data.hashArray.forEach(element => {
+          element.newest = false;
+          if (element.levelHash == e.data.updateHash) {
+            element.newest = true;
+          }
+        });
       }).then(()=>{
         if (this.$route.params.SongHash == "0"){
           this.$data.selectedHash = this.$data.hashArray[0].levelHash;
