@@ -25,7 +25,7 @@
         <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen"><button>Open in Client</button></a>
         <button @click="refreshHashSection" class="metaOpen">Refresh All</button>
         <button @click="toggleMultiHash" class="metaOpen" >Enable Merging of Similar Versions (Beta) <input class= "checkbox" type="checkbox" v-model="multiHash"></button>
-        <select class="metaSelect" v-model="dbDropdown">
+        <select class="metaSelect metaOpen" v-model="dbDropdown">
           <option v-for="option in dbOptions" v-bind:value="option.value"> {{ option.text }} </option>
         </select>
       </div>
@@ -217,20 +217,9 @@ export default {
         margin-bottom: 10px;
       }
       & .metaSelect {
-        text-decoration: none;
-        cursor: pointer;
-        color: #e22c78;
-        border-radius: 6px;
-        border: 0px;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 5px 15px;
-        text-align: center;
-        margin-left: 5px;
-        margin-bottom: 10px;
-        height: 31px;
-        appearance: none;
         background-image: none;
         font-size: 12pt;
+        appearance: none;
       }
     }
     & .hashChangerSection {
