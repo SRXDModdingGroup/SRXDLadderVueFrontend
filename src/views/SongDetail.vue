@@ -25,6 +25,9 @@
         <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen"><button>Open in Client</button></a>
         <button @click="refreshHashSection" class="metaOpen">Refresh All</button>
         <button @click="toggleMultiHash" class="metaOpen" >Enable Merging of Similar Versions (Beta) <input class= "checkbox" type="checkbox" v-model="multiHash"></button>
+        <select class="steamIDInput metaOpen" v-model="dbDropdown">
+          <option v-for="option in dbOptions" v-bind:value="option.value"> {{ option.text }} </option>
+        </select>
       </div>
       <div class="hashFooter">
         Hashes:
@@ -58,7 +61,13 @@ export default {
       SongInfoObj: {},
       steamID: this.$store.state.steamID,
       refreshHashSectionKey: 0,
-      multiHash: this.$store.state.multiHash
+
+      multiHash: this.$store.state.multiHash,
+      dbDropdown: this.$store.state.database,
+      dbOptions: [
+        { text: 'Main', value: '' },
+        { text: 'PrePatch11Data', value: 'PrePatch11Data' }
+      ]
     }
   },
   mounted() {
@@ -66,7 +75,7 @@ export default {
       let backbone = new BACKBONE;
       ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
         this.$data.SongInfoObj = e.data
-        this.$data.hashArray = await backbone.getHashes(this.$data.SpinshareReference);
+        this.$data.hashArray = await backbone.getHashes(this.$data.SpinshareReference, this.$store.state.database);
         
         //Displays if newest
         this.$data.hashArray.forEach(element => {
@@ -87,6 +96,9 @@ export default {
     },
     multiHash() {
       this.$store.commit("setMultiHash", this.$data.multiHash)
+    },
+    dbDropdown() {
+      this.$store.commit("setDatabase", this.$data.dbDropdown)
     },
     selectedHash() {
       console.log("hash changed")

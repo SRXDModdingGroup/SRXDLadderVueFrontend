@@ -10,8 +10,9 @@ class BACKBONE {
         }
     }
 
-    async getHashes(search) {
+    async getHashes(search, database) {
         let backboneURL = this.urlBase + "getHashes?search=" + search;
+        if (database) backboneURL = backboneURL + `&db=${database}`
         return axios.get(backboneURL)
         .then(function(response) {
             return response.data;
@@ -19,9 +20,10 @@ class BACKBONE {
             throw new Error(error);
         });
     }
-    async getScores(hash, difficulty, pageIndex, multiHashBool) {
+    async getScores(hash, difficulty, pageIndex, multiHashBool, database) {
         let backboneURL = this.urlBase + 'getScores?search='+hash+"&difficulty="+difficulty+"&page="+pageIndex;
         if (multiHashBool) backboneURL = backboneURL + "&multiHash=true"
+        if (database) backboneURL = backboneURL + `&db=${database}`
         return axios.get(backboneURL)
         .then(function(response) {
             return response.data;
@@ -29,9 +31,10 @@ class BACKBONE {
             throw new Error(error);
         });
     }
-    async getUserScore(steamID, hash, difficulty, multiHashBool) {
+    async getUserScore(steamID, hash, difficulty, multiHashBool, database) {
         let backboneURL = this.urlBase + 'getUserScore?search='+hash+"&difficulty="+difficulty+"&steamID="+steamID;
         if (multiHashBool) backboneURL = backboneURL + "&multiHash=true"
+        if (database) backboneURL = backboneURL + `&db=${database}`
         return axios.get(backboneURL)
         .then(function(response) {
             return response.data;

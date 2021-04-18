@@ -10,8 +10,9 @@ const vuexLocal = new VuexPersist({
 
 export default new Vuex.Store({
   state: {
-    steamID: null,
-    multiHash: false
+    steamID: "",
+    multiHash: false,
+    database: ""
   },
   mutations: {
     setSteamID(state, steamID) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     setMultiHash(state, value) {
       state.multiHash = value;
+    },
+    setDatabase(state, value) {
+      state.database = value;
     }
   },
   actions: {

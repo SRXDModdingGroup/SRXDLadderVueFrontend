@@ -28,7 +28,7 @@ export default {
       let ssapi = new SSAPI;
       let backbone = new BACKBONE;
       ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
-        let hashArray = await backbone.getHashes(e.data.fileReference);
+        let hashArray = await backbone.getHashes(e.data.fileReference, this.$store.state.database);
         let hashString = new String();
         if (hashArray.includes(e.data.updateHash)){
           hashString = e.data.updateHash;
@@ -40,7 +40,7 @@ export default {
     },
     getHash: async function() {
       let backbone = new BACKBONE;
-      return await backbone.getHashes(this.$data.SpinshareReference);
+      return await backbone.getHashes(this.$data.SpinshareReference, this.$store.state.database);
     }
   }
 }

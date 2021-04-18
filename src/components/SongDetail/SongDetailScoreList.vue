@@ -77,9 +77,9 @@ export default {
   methods: {
     refreshList: async function() {
       let backbone = new BACKBONE;     
-      this.$data.scoreArr = await backbone.getScores(this.$props.hash, this.$props.difficulty, this.$data.pageIndex - 1, this.$store.state.multiHash)
+      this.$data.scoreArr = await backbone.getScores(this.$props.hash, this.$props.difficulty, this.$data.pageIndex - 1, this.$store.state.multiHash, this.$store.state.database)
       if (this.$store.state.steamID != null){
-        this.$data.yourScore = await backbone.getUserScore(this.$store.state.steamID,this.$props.hash, this.$props.difficulty, this.$store.state.multiHash)
+        this.$data.yourScore = await backbone.getUserScore(this.$store.state.steamID,this.$props.hash, this.$props.difficulty, this.$store.state.multiHash, this.$store.state.database)
       }
       this.$data.emptyArr = new Array(12 - this.$data.scoreArr.length)
       if (this.$data.scoreArr[0]) this.$data.maxPage = this.$data.scoreArr[0].maxPage
