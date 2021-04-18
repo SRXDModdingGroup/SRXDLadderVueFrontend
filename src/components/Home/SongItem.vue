@@ -10,7 +10,6 @@
 <script>
 import SSAPI from '@/modules/module.api.js'
 import BACKBONE from '@/modules/module.backbone.js'
-import axios from 'axios'
 
 export default {
   name: 'SongItem',

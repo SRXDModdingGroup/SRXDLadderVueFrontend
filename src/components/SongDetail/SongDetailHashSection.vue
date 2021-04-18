@@ -20,9 +20,8 @@
 
 <script>
 // @ is an alias to /src
-import SSAPI from '@/modules/module.api.js'
 import SongDetailScoreList from '@/components/SongDetail/SongDetailScoreList.vue'
-import axios from 'axios'
+
 
 export default {
   name: 'SongDetailHashSection',

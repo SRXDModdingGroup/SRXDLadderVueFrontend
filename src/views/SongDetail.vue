@@ -25,7 +25,7 @@
         <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen"><button>Open in Client</button></a>
         <button @click="refreshHashSection" class="metaOpen">Refresh All</button>
         <button @click="toggleMultiHash" class="metaOpen" >Enable Merging of Similar Versions (Beta) <input class= "checkbox" type="checkbox" v-model="multiHash"></button>
-        <select class="steamIDInput metaOpen" v-model="dbDropdown">
+        <select class="metaSelect" v-model="dbDropdown">
           <option v-for="option in dbOptions" v-bind:value="option.value"> {{ option.text }} </option>
         </select>
       </div>
@@ -65,7 +65,7 @@ export default {
       multiHash: this.$store.state.multiHash,
       dbDropdown: this.$store.state.database,
       dbOptions: [
-        { text: 'Main', value: '' },
+        { text: 'Main Database', value: '' },
         { text: 'PrePatch11Data', value: 'PrePatch11Data' }
       ]
     }
@@ -215,6 +215,22 @@ export default {
       }
       & .steamIDInput {
         margin-bottom: 10px;
+      }
+      & .metaSelect {
+        text-decoration: none;
+        cursor: pointer;
+        color: #e22c78;
+        border-radius: 6px;
+        border: 0px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 5px 15px;
+        text-align: center;
+        margin-left: 5px;
+        margin-bottom: 10px;
+        height: 31px;
+        appearance: none;
+        background-image: none;
+        font-size: 12pt;
       }
     }
     & .hashChangerSection {
