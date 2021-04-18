@@ -55,7 +55,7 @@ export default {
   props: {
     'SongInfoObj': Object,
     'difficulty': String,
-    'hash': String
+    'hash': String,
   },
   data: function(){
     return{
@@ -63,7 +63,7 @@ export default {
       pageIndex: 1,
       scoreArr: [],
       yourScore: [],
-      emptyArr: [],
+      emptyArr: []
     }
   },
   watch: {
@@ -77,9 +77,9 @@ export default {
   methods: {
     refreshList: async function() {
       let backbone = new BACKBONE;     
-      this.$data.scoreArr = await backbone.getScores(this.$props.hash, this.$props.difficulty, this.$data.pageIndex - 1)
-      if (localStorage.getItem("steamID") != null){
-        this.$data.yourScore = await backbone.getUserScore(localStorage.getItem("steamID"),this.$props.hash, this.$props.difficulty)
+      this.$data.scoreArr = await backbone.getScores(this.$props.hash, this.$props.difficulty, this.$data.pageIndex - 1, this.$store.state.multiHash)
+      if (this.$store.state.steamID != null){
+        this.$data.yourScore = await backbone.getUserScore(this.$store.state.steamID,this.$props.hash, this.$props.difficulty, this.$store.state.multiHash)
       }
       this.$data.emptyArr = new Array(12 - this.$data.scoreArr.length)
       if (this.$data.scoreArr[0]) this.$data.maxPage = this.$data.scoreArr[0].maxPage

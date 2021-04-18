@@ -56,17 +56,12 @@ export default {
       selectedHash: this.$route.params.SongHash,
       hashArray: [],
       SongInfoObj: {},
-      steamID: "",
+      steamID: this.$store.state.steamID,
       refreshHashSectionKey: 0,
-      multiHash: false
+      multiHash: this.$store.state.multiHash
     }
   },
   mounted() {
-      if(localStorage.getItem('steamID') != null) this.$data.steamID = localStorage.getItem('steamID')
-      if(localStorage.getItem('multiHash') != null) this.$data.multiHash = (localStorage.getItem('multiHash') == "true")
-      else {
-        localStorage.setItem('multiHash', this.$data.multiHash)
-      }
       let ssapi = new SSAPI;
       let backbone = new BACKBONE;
       ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
@@ -88,11 +83,10 @@ export default {
   },
   watch: {
     steamID() {
-      if (this.$data.steamID == "") localStorage.removeItem('steamID')
-      else localStorage.setItem('steamID', this.$data.steamID)
+      this.$store.commit("setSteamID", this.$data.steamID)
     },
     multiHash() {
-      localStorage.setItem('multiHash', this.$data.multiHash);
+      this.$store.commit("setMultiHash", this.$data.multiHash)
     },
     selectedHash() {
       console.log("hash changed")

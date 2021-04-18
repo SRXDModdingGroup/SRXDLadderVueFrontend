@@ -8,7 +8,6 @@ class BACKBONE {
         else {
             this.urlBase = "https://spin-board.herokuapp.com/api/";
         }
-        this.multiHashBool = (localStorage.getItem('multiHash') === "true");
     }
 
     async getHashes(search) {
@@ -20,9 +19,9 @@ class BACKBONE {
             throw new Error(error);
         });
     }
-    async getScores(hash, difficulty, pageIndex) {
+    async getScores(hash, difficulty, pageIndex, multiHashBool) {
         let backboneURL = this.urlBase + 'getScores?search='+hash+"&difficulty="+difficulty+"&page="+pageIndex;
-        if (this.multiHashBool) backboneURL = backboneURL + "&multiHash=true"
+        if (multiHashBool) backboneURL = backboneURL + "&multiHash=true"
         return axios.get(backboneURL)
         .then(function(response) {
             return response.data;
@@ -30,9 +29,9 @@ class BACKBONE {
             throw new Error(error);
         });
     }
-    async getUserScore(steamID, hash, difficulty) {
+    async getUserScore(steamID, hash, difficulty, multiHashBool) {
         let backboneURL = this.urlBase + 'getUserScore?search='+hash+"&difficulty="+difficulty+"&steamID="+steamID;
-        if (this.multiHashBool) backboneURL = backboneURL + "&multiHash=true"
+        if (multiHashBool) backboneURL = backboneURL + "&multiHash=true"
         return axios.get(backboneURL)
         .then(function(response) {
             return response.data;
