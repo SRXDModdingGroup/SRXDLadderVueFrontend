@@ -32,7 +32,7 @@ export default {
         if (hashArray.includes(e.data.updateHash)){
           hashString = e.data.updateHash;
         }
-        else if (hashArray.length == 0) {hashArray = "0"}
+        else if (hashArray.length == 0) {hashString = "0"}
         else {hashString = hashArray[0].levelHash}
         this.$router.push({ name: 'Song', params: {SpinshareReference: e.data.fileReference, SongHash: hashString} })
       });
