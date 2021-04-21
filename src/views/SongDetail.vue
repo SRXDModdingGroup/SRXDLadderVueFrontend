@@ -20,7 +20,7 @@
     <br> 
     <div class="meta">
       <div class="metaButtons">
-        <input class="steamIDInput" v-model="steamID" placeholder="Set your steamID here...">
+        <input class="steamIDInput" v-on:change="commitSteamID" v-model="steamID" placeholder="Set your steamID here...">
         <a :href="'https://spinsha.re/song/'+SongInfoObj.id" class="metaOpen">Open on SpinSha.re</a>
         <a :href="'spinshare-song://'+SpinshareReference" class="metaOpen"><button>Open in Client</button></a>
         <button @click="refreshHashSection" class="metaOpen">Refresh All</button>
@@ -76,9 +76,6 @@ export default {
     this.mount()
   },
   watch: {
-    steamID() {
-      this.$store.commit("setSteamID", this.$data.steamID)
-    },
     multiHash() {
       this.$store.commit("setMultiHash", this.$data.multiHash)
       this.refreshHashSection();
@@ -123,6 +120,10 @@ export default {
     },
     toggleMultiHash: function() {
       this.$data.multiHash = !this.$data.multiHash;
+    },
+    commitSteamID: function(params) {
+      this.$store.commit("setSteamID", this.$data.steamID)
+      this.refreshHashSection();
     }
   },
   beforeRouteUpdate (to, from, next) {
