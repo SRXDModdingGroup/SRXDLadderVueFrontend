@@ -9,7 +9,7 @@
           <th>Rank:</th>
         </tr>
 
-        <SongDetailScore v-for="score in scoreArr" :key="score.score" :scoreObj="score"/>
+        <SongDetailScore v-for="(score, index) in scoreArr" :key="index" :scoreObj="score"/>
 
         <tr v-for="(empty, index) in emptyArr" :key="index">
           <th>-</th>

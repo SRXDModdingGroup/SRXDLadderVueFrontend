@@ -3,7 +3,7 @@
       <th>{{scoreObj.index}}</th> 
       <th>{{scoreObj.score}}</th> 
       <th><a :href="'https://steamcommunity.com/profiles/'+ this.$props.scoreObj.steamID">{{scoreObj.steamUsername}}</a></th> 
-      <th>{{scoreObj.rank}}</th> 
+      <th>{{rank}}</th> 
     </tr>
 </template>
 
@@ -19,11 +19,13 @@ export default {
   },
   data: function(){
     return{
-      rank: ""
+      rank: this.$props.scoreObj.rank
     }
   },
   mounted() {
-    this.$data.rank = this.getRank(this.$props.scoreObj.rank)
+    if (Number.isInteger(this.$data.rank)) {
+      this.$data.rank = this.getRank(this.$data.rank)
+    }
   },
   methods: {
     getRank: function(rankIndex) {

@@ -32,9 +32,9 @@
       <div class="hashFooter">
         Hashes:
         <ul class="hashChangerSection">
-          <a class="hashChanger" v-for="(hash, index) in hashArray" @click="hashChanger(hash.levelHash)" :key="index">
+          <router-link v-for="(hash, index) in hashArray" :key="index" :to="{name: 'Song', params: {'SpinshareReference': SpinshareReference, 'SongHash': hash.levelHash}}" class="hashChanger">
             <li><span v-if="hash.newest">Newest - </span>{{hash.levelHash}} - {{hash.length}} Submitted Scores</li>
-          </a>
+          </router-link>
         </ul>
       </div>
     </div>
@@ -49,7 +49,7 @@ import SongDetailHashSection from '@/components/SongDetail/SongDetailHashSection
 import axios from 'axios'
 
 export default {
-  name: 'SongDetail',
+  name: 'Song',
   components: {
     SongDetailHashSection
   },
@@ -71,6 +71,25 @@ export default {
     }
   },
   mounted() {
+    this.mount()
+  },
+  watch: {
+    steamID() {
+      this.$store.commit("setSteamID", this.$data.steamID)
+    },
+    multiHash() {
+      this.$store.commit("setMultiHash", this.$data.multiHash)
+    },
+    dbDropdown() {
+      this.$store.commit("setDatabase", this.$data.dbDropdown)
+    },
+    selectedHash() {
+      console.log("hash changed")
+      this.refreshHashSection();
+    },
+  },
+  methods: {
+    mount: function() {
       let ssapi = new SSAPI;
       let backbone = new BACKBONE;
       ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
@@ -89,23 +108,7 @@ export default {
           this.$data.selectedHash = this.$data.hashArray[0].levelHash;
         }
       })
-  },
-  watch: {
-    steamID() {
-      this.$store.commit("setSteamID", this.$data.steamID)
     },
-    multiHash() {
-      this.$store.commit("setMultiHash", this.$data.multiHash)
-    },
-    dbDropdown() {
-      this.$store.commit("setDatabase", this.$data.dbDropdown)
-    },
-    selectedHash() {
-      console.log("hash changed")
-      this.refreshHashSection();
-    }
-  },
-  methods: {
     hashChanger: function(hash) {
       this.$router.push({ name: 'Song', params: {SpinshareReference: this.$route.params.SpinshareReference, SongHash: hash} })
       window.location.reload();
@@ -119,6 +122,10 @@ export default {
     toggleMultiHash: function() {
       this.$data.multiHash = !this.$data.multiHash;
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$data.selectedHash = to.params.SongHash
+    next()
   }
 }
 </script>
