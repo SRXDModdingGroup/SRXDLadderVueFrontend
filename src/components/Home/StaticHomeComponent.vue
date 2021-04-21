@@ -7,7 +7,7 @@
     <body><span class="mdi mdi-help-circle-outline" /></body>
   </div>
   <router-link :to="{name: 'Legal'}" tag="div" class="buttonItem">
-    <body><span class="mdi mdi-trophy-variant-outline" /></body>
+    <body><span class="mdi mdi-gavel" /></body>
   </router-link>
   <div class="buttonItem" v-on:click="open('https://spinsha.re/')">
     <img src="https://spinshare.b-cdn.net/assets/img/favicon.png" />
