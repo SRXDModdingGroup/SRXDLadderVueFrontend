@@ -70,7 +70,9 @@ export default {
       ]
     }
   },
-  mounted() {
+  async mounted() {
+    let ssapi = new SSAPI;
+    this.$data.SongInfoObj = (await ssapi.getSongDetail(this.$data.SpinshareReference)).data
     this.mount()
   },
   watch: {
@@ -79,9 +81,12 @@ export default {
     },
     multiHash() {
       this.$store.commit("setMultiHash", this.$data.multiHash)
+      this.refreshHashSection();
     },
     dbDropdown() {
-      this.$store.commit("setDatabase", this.$data.dbDropdown)
+      this.$store.commit("setDatabase", this.$data.dbDropdown);
+      this.mount();
+      this.refreshHashSection();
     },
     selectedHash() {
       console.log("hash changed")
@@ -89,25 +94,22 @@ export default {
     },
   },
   methods: {
-    mount: function() {
-      let ssapi = new SSAPI;
+    mount: async function() {
       let backbone = new BACKBONE;
-      ssapi.getSongDetail(this.$data.SpinshareReference).then(async e => {
-        this.$data.SongInfoObj = e.data
-        this.$data.hashArray = await backbone.getHashes(this.$data.SpinshareReference, this.$store.state.database);
-        
-        //Displays if newest
-        this.$data.hashArray.forEach(element => {
-          element.newest = false;
-          if (element.levelHash == e.data.updateHash) {
-            element.newest = true;
-          }
-        });
-      }).then(()=>{
-        if (this.$route.params.SongHash == "0"){
-          this.$data.selectedHash = this.$data.hashArray[0].levelHash;
+
+      this.$data.hashArray = await backbone.getHashes(this.$data.SpinshareReference, this.$store.state.database);
+      
+      //Displays if newest
+      this.$data.hashArray.forEach(element => {
+        element.newest = false;
+        if (element.levelHash == this.$data.SongInfoObj.updateHash) {
+          element.newest = true;
         }
-      })
+      });
+
+      if (this.$route.params.SongHash == "0"){
+        this.$data.selectedHash = this.$data.hashArray[0].levelHash;
+      }
     },
     hashChanger: function(hash) {
       this.$router.push({ name: 'Song', params: {SpinshareReference: this.$route.params.SpinshareReference, SongHash: hash} })
