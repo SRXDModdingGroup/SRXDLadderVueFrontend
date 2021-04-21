@@ -29,7 +29,7 @@ export default {
       ssapi.getSongDetail(this.$props.songObj.id).then(async e => {
         let hashArray = await backbone.getHashes(e.data.fileReference, this.$store.state.database);
         let hashString = new String();
-        if (hashArray.includes(e.data.updateHash)){
+        if (hashArray.filter(temp => temp.levelHash === e.data.updateHash).length > 0) {
           hashString = e.data.updateHash;
         }
         else if (hashArray.length == 0) {hashString = "0"}
