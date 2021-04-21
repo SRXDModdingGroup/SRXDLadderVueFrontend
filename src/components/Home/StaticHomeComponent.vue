@@ -6,9 +6,9 @@
   <div class="buttonItem" v-on:click="open('https://gist.github.com/jy1263/35a9cadbdd25451d9de56054207ee6c5')">
     <body><span class="mdi mdi-help-circle-outline" /></body>
   </div>
-  <div class="buttonItem" v-on:click="openTournament()">
+  <router-link :to="{name: 'Legal'}" tag="div" class="buttonItem">
     <body><span class="mdi mdi-trophy-variant-outline" /></body>
-  </div>
+  </router-link>
   <div class="buttonItem" v-on:click="open('https://spinsha.re/')">
     <img src="https://spinshare.b-cdn.net/assets/img/favicon.png" />
   </div>
@@ -18,9 +18,7 @@
 
 <script>
 import '@mdi/font/css/materialdesignicons.css'
-import SSAPI from '@/modules/module.api.js'
 import BACKBONE from '@/modules/module.backbone.js'
-import axios from 'axios'
 
 export default {
     name: 'StaticHomeComponent',

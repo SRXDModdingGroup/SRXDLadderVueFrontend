@@ -28,6 +28,11 @@ Vue.use(VueRouter)
     name: 'TournamentStream',
     component: () => import(/* webpackChunkName: "about" */ '../views/TournamentStream.vue') 
   },
+  { 
+    path: '/legal', 
+    name: 'Legal',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Legal.vue') 
+  },
 ]
 
 const router = new VueRouter({
