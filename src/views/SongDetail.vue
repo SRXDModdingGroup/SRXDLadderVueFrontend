@@ -12,7 +12,7 @@
           Charter: {{ SongInfoObj.charter }} <br>
         </body>
       </div>
-      <div class="homeButton" @click="backToHome"><span class="mdi mdi-home" /></div>
+      <router-link :to="{name: 'Home'}" class="homeButton"><span class="mdi mdi-home" /></router-link>
     </div>
 
     <SongDetailHashSection :key="refreshHashSectionKey" :SongInfoObj="SongInfoObj" :hash="selectedHash" />
