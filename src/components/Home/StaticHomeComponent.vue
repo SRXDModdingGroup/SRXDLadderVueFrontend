@@ -1,17 +1,17 @@
 <template>
 <section class="container">
-  <div class="buttonItem" v-on:click="open(urlBase + 'download')">
+  <a class="buttonItem" href="https://github.com/SRXDModdingGroup/SRXDLadderModReleases/releases/latest/download/SRXDLadderModBepin.dll">
     <body><span class="mdi mdi-download" /></body>
-  </div>
-  <div class="buttonItem" v-on:click="open('https://gist.github.com/jy1263/35a9cadbdd25451d9de56054207ee6c5')">
+  </a>
+  <a class="buttonItem" href="https://gist.github.com/jy1263/35a9cadbdd25451d9de56054207ee6c5">
     <body><span class="mdi mdi-help-circle-outline" /></body>
-  </div>
-  <router-link :to="{name: 'Legal'}" tag="div" class="buttonItem">
+  </a>
+  <router-link :to="{name: 'Legal'}" class="buttonItem">
     <body><span class="mdi mdi-gavel" /></body>
   </router-link>
-  <div class="buttonItem" v-on:click="open('https://spinsha.re/')">
+  <a class="buttonItem" href="https://spinsha.re/">
     <img src="https://spinshare.b-cdn.net/assets/img/favicon.png" />
-  </div>
+  </a>
   
 </section>
 </template>
