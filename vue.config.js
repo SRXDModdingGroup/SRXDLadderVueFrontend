@@ -1,3 +1,4 @@
+const { GENERATE_PATH = '../SRXDLadderBackend/build/public/' } = process.env
 module.exports = {
-    outputDir: '../SRXDExpressServerBackend/public/'
+    outputDir: GENERATE_PATH
 }  
